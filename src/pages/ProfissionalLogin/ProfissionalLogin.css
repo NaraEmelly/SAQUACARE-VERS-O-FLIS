@@ -1,0 +1,751 @@
+@keyframes auth-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes auth-drop {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes auth-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes auth-glow {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.18); opacity: 0.8; }
+}
+
+@keyframes auth-ecg {
+  from { background-position: 0 0; }
+  to { background-position: -320px 0; }
+}
+
+@keyframes auth-bar {
+  to { transform: scaleX(1); }
+}
+
+@keyframes auth-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes auth-pop {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: none; }
+}
+
+
+
+.auth-profissional {
+  --auth-deep: 0 30 50;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+
+  --auth-photo: url("https://www.odiariodeumaviajante.com.br/wp-content/uploads/2011/09/saquarema-igreja-n-sra-nazare.jpg");
+
+
+  --auth-logo-filter: brightness(0) invert(1) drop-shadow(0 8px 18px rgb(0 30 50 / 0.45));
+
+  --auth-field-h: clamp(36px, 5.6vh, 48px);
+  --auth-gap: clamp(8px, 1.5vh, 18px);
+  --auth-card-pad: clamp(16px, 3vh, 38px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+
+
+.auth-profissional .cadastro-brand-side {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  isolation: isolate;
+  overflow: hidden;
+  height: 100vh;
+  height: 100dvh;
+  padding: clamp(20px, 4vh, 36px) clamp(28px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--color-on-primary);
+  background-color: var(--color-primary-dark);
+  background-image:
+    radial-gradient(rgb(255 255 255 / 0.08) 1px, transparent 1.5px),
+    linear-gradient(
+      160deg,
+      rgb(var(--auth-deep) / 0.93) 0%,
+      rgb(var(--color-primary-dark-rgb) / 0.86) 55%,
+      rgb(var(--color-primary-rgb) / 0.62) 100%
+    ),
+    var(--auth-photo);
+  background-size: 26px 26px, cover, cover;
+  background-position: 0 0, center, center 65%;
+  background-repeat: repeat, no-repeat, no-repeat;
+}
+
+
+.auth-profissional .cadastro-brand-side::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 32%;
+  right: -140px;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(var(--color-secondary-rgb) / 0.4) 0%, transparent 68%);
+  filter: blur(50px);
+  pointer-events: none;
+  animation: auth-glow 9s ease-in-out infinite;
+}
+
+.auth-profissional .cadastro-brand-side::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: clamp(16px, 4vh, 44px);
+  height: 90px;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='90' viewBox='0 0 320 90'%3E%3Cpath d='M0 45H110L125 45L135 20L150 70L162 10L175 45H190L198 38L206 45H320' fill='none' stroke='white' stroke-opacity='0.3' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 320px 90px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent);
+  animation: auth-ecg 14s linear infinite;
+}
+
+.auth-profissional .auth-back-link {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: var(--radius-sm);
+  color: var(--color-on-primary);
+  background: rgb(255 255 255 / 0.12);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.25s ease, transform 0.3s var(--ease-out);
+  animation: auth-drop 0.7s var(--ease-out) backwards;
+}
+
+.auth-profissional .auth-back-link:hover {
+  background: rgb(255 255 255 / 0.22);
+  transform: translateX(-3px);
+}
+
+.auth-profissional .auth-back-link:focus-visible {
+  outline: 3px solid var(--color-on-primary);
+  outline-offset: 3px;
+}
+
+.auth-profissional .brand-content {
+  position: relative;
+  z-index: 1;
+  max-width: 440px;
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+.auth-profissional .brand-content::before {
+  content: "Acesso restrito à equipe";
+  order: 2;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: clamp(12px, 2.6vh, 22px);
+  padding: 9px 16px 9px 34px;
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: var(--radius-pill);
+  background:
+    radial-gradient(circle at 17px 50%, var(--color-secondary) 0 4px, transparent 4.5px),
+    rgb(255 255 255 / 0.14);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--color-on-primary);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  animation: auth-rise 0.9s 0.2s var(--ease-out) backwards;
+}
+
+.auth-profissional .cadastro-brand-side .logo {
+  order: 1;
+  display: block;
+  width: clamp(120px, 21vh, 180px);
+  height: auto;
+  margin: 0 0 clamp(8px, 2vh, 18px) -6px;
+  padding: 0;
+  object-fit: contain;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  filter: var(--auth-logo-filter);
+  animation:
+    auth-rise 0.9s 0.1s var(--ease-out) backwards,
+    auth-float 7s 1.1s ease-in-out infinite;
+}
+
+.auth-profissional .cadastro-brand-side h1 {
+  order: 3;
+  position: relative;
+  margin-bottom: clamp(10px, 2vh, 18px);
+  padding-bottom: clamp(12px, 2.4vh, 20px);
+  color: var(--color-on-primary);
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1.08;
+  animation: auth-rise 0.9s 0.32s var(--ease-out) backwards;
+}
+
+.auth-profissional .cadastro-brand-side h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-secondary), rgb(var(--color-secondary-rgb) / 0.35));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: auth-bar 0.9s 1s var(--ease-out) forwards;
+}
+
+.auth-profissional .cadastro-brand-side p {
+  order: 4;
+  max-width: 400px;
+  margin: 0;
+  color: rgb(255 255 255 / 0.88);
+  font-size: 1.02rem;
+  line-height: 1.75;
+  animation: auth-rise 0.9s 0.45s var(--ease-out) backwards;
+}
+
+
+
+.auth-profissional .cadastro-form-side {
+  container-type: inline-size;
+  position: relative;
+  overflow: hidden;
+  height: auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: clamp(12px, 2.4vh, 32px) 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-page);
+}
+
+
+.auth-profissional .cadastro-form-side::before,
+.auth-profissional .cadastro-form-side::after {
+  content: "";
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.auth-profissional .cadastro-form-side::before {
+  top: -160px;
+  right: -140px;
+  background: radial-gradient(circle, rgb(var(--color-primary-rgb) / 0.13) 0%, transparent 70%);
+}
+
+.auth-profissional .cadastro-form-side::after {
+  bottom: -180px;
+  left: -140px;
+  background: radial-gradient(circle, rgb(var(--color-secondary-rgb) / 0.14) 0%, transparent 70%);
+}
+
+.auth-profissional .form-card {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  padding: calc(var(--auth-card-pad) + 4px) clamp(24px, 3.4vw, 44px) var(--auth-card-pad);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  background: var(--color-surface);
+  box-shadow:
+    0 34px 60px -34px rgb(var(--color-primary-dark-rgb) / 0.4),
+    0 4px 14px rgb(var(--color-primary-dark-rgb) / 0.05);
+  animation: auth-rise 0.8s 0.05s var(--ease-out) backwards;
+}
+
+
+.auth-profissional .form-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: auth-bar 1s 0.3s var(--ease-out) forwards;
+}
+
+.auth-profissional .form-card h2 {
+  margin-bottom: 2px;
+  color: var(--color-primary-dark);
+  font-size: clamp(1.35rem, 3.6vh, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  animation: auth-rise 0.7s 0.15s var(--ease-out) backwards;
+}
+
+.auth-profissional .form-subtitle {
+  margin-bottom: clamp(8px, 2vh, 20px);
+  color: var(--color-text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  animation: auth-rise 0.7s 0.22s var(--ease-out) backwards;
+}
+
+.auth-profissional .form-card form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--auth-gap) 16px;
+}
+
+.auth-profissional .form-card form > * {
+  animation: auth-rise 0.7s var(--ease-out) backwards;
+}
+
+.auth-profissional .input-group.full-width,
+.auth-profissional .checkbox-group.full-width,
+.auth-profissional .button-group.full-width {
+  grid-column: span 2;
+}
+
+
+
+.auth-profissional .input-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-profissional .form-card label {
+  margin-bottom: 5px;
+  color: var(--color-text);
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: color 0.25s ease;
+}
+
+.auth-profissional .input-group:focus-within label {
+  color: var(--color-primary);
+}
+
+.auth-profissional .form-card input[type="text"],
+.auth-profissional .form-card input[type="password"],
+.auth-profissional .form-card input[type="email"],
+.auth-profissional .form-card input[type="tel"],
+.auth-profissional .form-card input[type="date"] {
+  width: 100%;
+  height: var(--auth-field-h);
+  padding: 0 14px 0 42px;
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  background-repeat: no-repeat;
+  background-position: 14px 50%;
+  background-size: 18px 18px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.auth-profissional .form-card input::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.auth-profissional .form-card input[type="text"]:hover,
+.auth-profissional .form-card input[type="password"]:hover,
+.auth-profissional .form-card input[type="email"]:hover,
+.auth-profissional .form-card input[type="tel"]:hover,
+.auth-profissional .form-card input[type="date"]:hover {
+  border-color: rgb(var(--color-primary-rgb) / 0.55);
+}
+
+.auth-profissional .form-card input:focus {
+  border-color: var(--color-primary);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-focus);
+  outline: none;
+}
+
+.auth-profissional .form-card input:user-invalid {
+  border-color: var(--color-danger);
+}
+
+.auth-profissional .form-card input:user-invalid:focus {
+  box-shadow: 0 0 0 4px rgb(var(--color-danger-rgb) / 0.14);
+}
+
+
+.auth-profissional .form-card input:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-text);
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+.auth-profissional .form-card input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.auth-profissional .form-card input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+
+.auth-profissional .form-card #matricula { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237A8796' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Ccircle cx='9' cy='11' r='2'/%3E%3Cpath d='M6 16c.6-1.6 2-2 3-2s2.4.4 3 2M14 10h4M14 14h4'/%3E%3C/svg%3E"); }
+.auth-profissional .form-card #matricula:focus { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23006FAE' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Ccircle cx='9' cy='11' r='2'/%3E%3Cpath d='M6 16c.6-1.6 2-2 3-2s2.4.4 3 2M14 10h4M14 14h4'/%3E%3C/svg%3E"); }
+.auth-profissional .form-card #senha { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237A8796' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='9' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E"); }
+.auth-profissional .form-card #senha:focus { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23006FAE' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='9' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E"); }
+
+
+
+.auth-profissional .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-profissional .checkbox-group label {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+
+.auth-profissional .checkbox-group input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 0 0 auto;
+  display: grid;
+  place-content: center;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: 6px;
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.auth-profissional .checkbox-group input[type="checkbox"]::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: var(--color-on-primary);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transition: transform 0.25s var(--ease-out);
+}
+
+.auth-profissional .checkbox-group input[type="checkbox"]:hover {
+  border-color: var(--color-primary);
+}
+
+.auth-profissional .checkbox-group input[type="checkbox"]:checked {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.auth-profissional .checkbox-group input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.auth-profissional .checkbox-group input[type="checkbox"]:focus-visible {
+  outline: 3px solid var(--color-primary-dark);
+  outline-offset: 2px;
+}
+
+
+
+.auth-profissional .form-card button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: calc(var(--auth-field-h) + 4px);
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--color-on-primary);
+  background: var(--gradient-secondary);
+  box-shadow:
+    0 14px 26px -12px rgb(var(--color-secondary-rgb) / 0.75),
+    inset 0 1px 0 rgb(255 255 255 / 0.25);
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s ease, filter 0.25s ease;
+}
+
+
+.auth-profissional .form-card button[type="submit"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.3) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+}
+
+.auth-profissional .form-card button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-3px);
+  filter: brightness(0.92);
+  box-shadow:
+    0 20px 32px -12px rgb(var(--color-secondary-rgb) / 0.85),
+    inset 0 1px 0 rgb(255 255 255 / 0.25);
+}
+
+.auth-profissional .form-card button[type="submit"]:hover:not(:disabled)::after {
+  transform: translateX(120%);
+}
+
+.auth-profissional .form-card button[type="submit"]:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.auth-profissional .form-card button[type="submit"]:focus-visible {
+  outline: 3px solid var(--color-primary-dark);
+  outline-offset: 3px;
+}
+
+.auth-profissional .form-card button[type="submit"]:disabled {
+  cursor: progress;
+  opacity: 0.85;
+}
+
+
+.auth-profissional .form-card button[type="submit"]:disabled::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgb(255 255 255 / 0.4);
+  border-top-color: var(--color-on-primary);
+  border-radius: 50%;
+  animation: auth-spin 0.7s linear infinite;
+}
+
+
+
+.auth-profissional .auth-switch {
+  margin-top: clamp(8px, 1.6vh, 18px);
+  padding-top: clamp(8px, 1.6vh, 14px);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.86rem;
+  text-align: center;
+  animation: auth-rise 0.7s 0.9s var(--ease-out) backwards;
+}
+
+.auth-profissional .auth-switch a {
+  position: relative;
+  padding-bottom: 2px;
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.auth-profissional .auth-switch a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.auth-profissional .auth-switch a:hover {
+  color: var(--color-primary-dark);
+}
+
+.auth-profissional .auth-switch a:hover::after {
+  transform: scaleX(1);
+}
+
+.auth-profissional .auth-switch a:focus-visible {
+  outline: 3px solid var(--color-primary-dark);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+
+
+.auth-profissional {
+  --auth-field-h: clamp(42px, 6.4vh, 52px);
+  --auth-gap: clamp(12px, 2.2vh, 22px);
+  --auth-card-pad: clamp(24px, 4.4vh, 46px);
+}
+
+.auth-profissional .form-card {
+  max-width: 460px;
+}
+
+.auth-profissional .form-card h2 {
+  font-size: clamp(1.5rem, 4vh, 1.9rem);
+}
+
+.auth-profissional .form-subtitle {
+  font-size: 0.92rem;
+}
+
+.auth-profissional .form-card form {
+  grid-template-columns: 1fr;
+}
+
+.auth-profissional .input-group.full-width,
+.auth-profissional .checkbox-group.full-width,
+.auth-profissional .button-group.full-width {
+  grid-column: span 1;
+}
+
+
+.auth-profissional .auth-switch + .auth-switch {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.auth-profissional .form-card form > :nth-child(1) { animation-delay: 0.28s; }
+.auth-profissional .form-card form > :nth-child(2) { animation-delay: 0.33s; }
+.auth-profissional .form-card form > :nth-child(3) { animation-delay: 0.38s; }
+.auth-profissional .form-card form > :nth-child(4) { animation-delay: 0.43s; }
+.auth-profissional .form-card form > :nth-child(5) { animation-delay: 0.48s; }
+.auth-profissional .form-card form > :nth-child(6) { animation-delay: 0.53s; }
+.auth-profissional .form-card form > :nth-child(7) { animation-delay: 0.58s; }
+.auth-profissional .form-card form > :nth-child(8) { animation-delay: 0.63s; }
+.auth-profissional .form-card form > :nth-child(9) { animation-delay: 0.68s; }
+.auth-profissional .form-card form > :nth-child(10) { animation-delay: 0.73s; }
+.auth-profissional .form-card form > :nth-child(11) { animation-delay: 0.78s; }
+
+
+@container (max-width: 559px) {
+  .auth-profissional .form-card form {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-profissional .input-group.full-width,
+  .auth-profissional .checkbox-group.full-width,
+  .auth-profissional .button-group.full-width {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .auth-profissional {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-profissional .cadastro-brand-side {
+    position: relative;
+    height: auto;
+    padding: 22px 22px 68px;
+    gap: 26px;
+  }
+
+  .auth-profissional .cadastro-brand-side::after {
+    display: none;
+  }
+
+  .auth-profissional .brand-content {
+    margin: 0;
+  }
+
+  .auth-profissional .cadastro-brand-side .logo {
+    width: 104px;
+    margin-bottom: 12px;
+  }
+
+  .auth-profissional .cadastro-brand-side h1 {
+    font-size: 1.9rem;
+  }
+
+  .auth-profissional .cadastro-brand-side p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .auth-profissional .cadastro-form-side {
+    z-index: 2;
+    min-height: 0;
+    margin-top: -40px;
+    padding: 0 16px 32px;
+    align-items: flex-start;
+    background: transparent;
+  }
+
+  .auth-profissional {
+    background: var(--gradient-page);
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-profissional .form-card {
+    padding: 28px 20px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-profissional *,
+  .auth-profissional *::before,
+  .auth-profissional *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

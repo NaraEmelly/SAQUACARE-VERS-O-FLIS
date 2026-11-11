@@ -1,0 +1,32 @@
+# Visão do problema de pesquisa (TCC)
+Alunos: Nayara Emelly, Jhean Monteiro, Cintia Mendes, Emanuelly Oliveira, Ana Beatriz Abrantes |
+Disciplina: Práticas Extensionistas Integradoras |
+Período atual: 4º - 2.2026 |
+Nome Projeto: SaquaCare
+_______________________________________________________________________________________________________________
+
+
+## 1. Problema prático
+Usuários de serviços de saúde em Saquarema enfrentam dificuldades no acesso a informações, agendamento e acompanhamento dos atendimentos, devido a processos manuais e pouco integrados, que podem gerar perda de tempo, deslocamentos desnecessários e dificuldades de comunicação.
+
+## 2. Contexto
+Serviços de saúde públicos e, quando aplicável, particulares do município de Saquarema/RJ, inicialmente com foco em unidades como a Policlínica Municipal e a Clínica da Mulher. O problema ocorre no acesso a informações, agendamento e acompanhamento dos atendimentos, considerando os diferentes processos, ferramentas e limitações de cada serviço.
+
+## 3. Implicações e impactos
+A manutenção dessas dificuldades pode gerar perda de tempo, deslocamentos desnecessários, falhas de comunicação e maior demanda sobre os profissionais. O enfrentamento do problema pode facilitar o acesso dos usuários, melhorar a comunicação e contribuir para uma organização mais eficiente do atendimento.
+
+## 4. Stakeholders
+Usuários/pacientes (utilizam os serviços de saúde), profissionais de atendimento (orientam e atendem os usuários), profissionais de saúde (realizam os atendimentos), gestores das unidades (acompanham os processos) e gestão municipal (define decisões e recursos). Motivação principal: facilitar o acesso aos serviços, melhorar a comunicação e organizar o fluxo de atendimento.
+
+## 5. Evidências
+A literatura aponta dificuldades no acesso, agendamento e comunicação nos serviços de saúde. Os Relatórios 1 e 2, produzidos a partir de pesquisas de campo realizadas em 2025, também registraram evidências dessas necessidades. Soluções como o Meu SUS Digital já existem, mas possuem diferentes condições de aplicação, reforçando a necessidade de uma solução adequada ao contexto analisado.
+
+## 6. Objetivo
+Desenvolver e avaliar uma solução digital, baseada nas necessidades identificadas, para facilitar o acesso, o agendamento e o acompanhamento dos serviços de saúde em Saquarema/RJ.
+
+## 7. Questões de pesquisa
+QP1: Quais são as principais dificuldades dos usuários no acesso, agendamento e acompanhamento dos serviços de saúde?
+
+QP2: Quais funcionalidades podem atender às necessidades identificadas pelos usuários e profissionais?
+
+QP3: Em que medida o SaquaCare facilita o acesso às informações e o acompanhamento dos serviços de saúde?

@@ -1,0 +1,118 @@
+/*
+  SaquaCare — variáveis globais de design
+
+  Este é o único lugar onde as cores do site são definidas.
+  Para mudar uma cor em todas as telas, altere só aqui.
+
+  Os canais "-rgb" existem para permitir transparência:
+  rgb(var(--color-primary-rgb) / 0.16)  =  azul da marca com 16% de opacidade
+*/
+
+:root {
+
+    /* ---------- Marca (cores da logo) ---------- */
+
+    /* Azul da logo. Botões, links, destaques. Texto branco sobre ele: 5,4:1 */
+    --color-primary: #006FAE;
+    --color-primary-rgb: 0 111 174;
+
+    /* Azul escuro, derivado do azul da logo. Títulos, hover, início de degradê */
+    --color-primary-dark: #004B78;
+    --color-primary-dark-rgb: 0 75 120;
+
+    /* Azul bem claro. Fundo de botões suaves, etiquetas, itens selecionados */
+    --color-primary-soft: #E6F1F8;
+
+    /* Verde da logo. SÓ para ícones, barras de progresso, detalhes e bordas.
+       NÃO usar como fundo com texto branco (contraste 2,7:1). */
+    --color-secondary: #39B54A;
+    --color-secondary-rgb: 57 181 74;
+
+    /* Verde para fundos com texto branco (botões, selos). Contraste: 4,7:1 */
+    --color-secondary-strong: #2A8436;
+
+    /* Hover/pressionado dos botões verdes */
+    --color-secondary-hover: #22702D;
+
+    /* Verde escuro para TEXTO verde sobre fundo claro. Contraste: 5,9:1 */
+    --color-secondary-text: #1E6B2C;
+
+    /* Verde bem claro. Fundo de selos de sucesso ("Concluída", "Confirmada") */
+    --color-secondary-soft: #E8F6EA;
+
+
+    /* ---------- Neutros ---------- */
+
+    --color-text: #172033;
+    --color-text-secondary: #5B6B7C;
+
+    /* Só para placeholders e detalhes (contraste baixo de propósito) */
+    --color-text-placeholder: #7A8796;
+
+    --color-surface: #FFFFFF;
+
+    /* Texto sobre fundos coloridos (azul da marca, verde de botão) */
+    --color-on-primary: #FFFFFF;
+    --color-bg: #F4F9FB;
+    --color-bg-end: #E8F2F4;
+    --color-bg-end-rgb: 232 242 244;
+
+    --color-border: rgb(var(--color-primary-rgb) / 0.16);
+    --color-border-soft: rgb(var(--color-primary-rgb) / 0.08);
+    --color-border-strong: rgb(var(--color-primary-rgb) / 0.3);
+
+
+    /* ---------- Estados ---------- */
+
+    --color-success: var(--color-secondary-strong);
+    --color-success-text: var(--color-secondary-text);
+    --color-success-soft: var(--color-secondary-soft);
+
+    --color-danger: #B42318;
+    --color-danger-rgb: 180 35 24;
+    --color-danger-soft: #FDECEA;
+
+    --color-warning-text: #8A5A00;
+    --color-warning-rgb: 138 90 0;
+    --color-warning-soft: #FFF3D6;
+
+
+    /* ---------- Degradês ---------- */
+
+    --gradient-primary: linear-gradient(
+        135deg,
+        var(--color-primary-dark),
+        var(--color-primary)
+    );
+
+    /* Para fundos com texto branco: as duas pontas têm contraste acima de 4,5:1 */
+    --gradient-secondary: linear-gradient(
+        135deg,
+        var(--color-secondary-text),
+        var(--color-secondary-strong)
+    );
+
+    --gradient-page: radial-gradient(
+        100% 100% at 50% 0%,
+        var(--color-surface) 0%,
+        var(--color-bg) 55%,
+        var(--color-bg-end) 100%
+    );
+
+
+    /* ---------- Formas e sombras ---------- */
+
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+    --radius-pill: 999px;
+
+    --shadow-card: 0 15px 40px rgb(var(--color-primary-dark-rgb) / 0.06);
+    --shadow-button: 0 8px 20px rgb(var(--color-primary-rgb) / 0.2);
+    --shadow-focus: 0 0 0 4px rgb(var(--color-primary-rgb) / 0.18);
+
+
+    /* ---------- Tipografia ---------- */
+
+    --font-family: "Poppins", "Inter", Arial, Helvetica, sans-serif;
+}

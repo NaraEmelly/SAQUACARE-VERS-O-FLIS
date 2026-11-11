@@ -1,0 +1,126 @@
+.acessibilidade {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10000;
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.acessibilidade-painel {
+  display: grid;
+  width: min(300px, calc(100vw - 32px));
+  gap: 10px;
+  padding: 16px;
+  border: 2px solid var(--color-primary-dark);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 4px 18px rgb(var(--color-primary-dark-rgb) / 0.22);
+}
+
+.acessibilidade-painel[hidden] {
+  display: none;
+}
+
+.acessibilidade-pular-conteudo {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 10001;
+  padding: 12px 16px;
+  transform: translateY(-160%);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #123b56;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.25);
+}
+
+.acessibilidade-pular-conteudo:focus {
+  transform: translateY(0);
+  outline: 3px solid #0b5cab;
+  outline-offset: 3px;
+}
+
+.acessibilidade-painel h2 {
+  margin: 0;
+  color: var(--color-primary-dark);
+  font-size: 1.15rem;
+}
+
+.acessibilidade-painel button,
+.acessibilidade-alternador {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 2px solid var(--color-primary-dark);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-primary-dark);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.acessibilidade-alternador {
+  width: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-primary-dark);
+  color: var(--color-on-primary);
+  box-shadow: 0 3px 12px rgb(var(--color-primary-dark-rgb) / 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.acessibilidade-alternador:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 16px rgb(var(--color-primary-dark-rgb) / 0.38);
+}
+
+.acessibilidade-painel button:focus-visible,
+.acessibilidade-alternador:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 3px;
+}
+
+.acessibilidade-painel button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.acessibilidade-aviso {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+html.saquacare-texto-ampliado {
+  font-size: 125%;
+}
+
+body.saquacare-alto-contraste,
+body.saquacare-alto-contraste *:not(img):not(svg):not(path) {
+  border-color: #ffff00 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+body.saquacare-alto-contraste a {
+  color: #ffff00 !important;
+}
+
+body.saquacare-alto-contraste :focus-visible {
+  outline: 3px solid #ffff00 !important;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .acessibilidade {
+    right: 10px;
+    bottom: 10px;
+  }
+}

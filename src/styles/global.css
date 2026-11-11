@@ -1,0 +1,21 @@
+/*
+  SaquaCare — estilos base do site
+
+  Reset e padrões válidos para todas as telas. Estilos de uma tela
+  específica ficam no CSS da própria tela, sempre dentro de uma classe
+  (ex.: .cadastro-container h2), para não vazar para as outras telas.
+
+  Importar DEPOIS de variables.css e index.css (veja main.tsx).
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
