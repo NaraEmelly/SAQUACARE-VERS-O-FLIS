@@ -2,16 +2,21 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Loading from "../components/Loading/Loading";
 import AccessibilityToolbar from "../components/AccessibilityToolbar/AccessibilityToolbar";
+import ProjectAssistant from "../components/ProjectAssistant/ProjectAssistant";
 
 import LandingPage from "../pages/LandingPage/LandingPage";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Unidades from "../pages/Unidades/Unidades";
 import ProfissionalDashboard from "../pages/ProfissionalDashboard/ProfissionalDashboard";
+import Login from "../pages/Login/Login";
+import Cadastro from "../pages/Cadastro/Cadastro";
+import ProfissionalLogin from "../pages/ProfissionalLogin/ProfissionalLogin";
 
 function App() {
     return (
         <BrowserRouter>
             <AccessibilityToolbar />
+            <ProjectAssistant />
             <Routes>
                 <Route 
                     path="/" 
@@ -29,9 +34,9 @@ function App() {
                     element={<LandingPage />}
                 />
 
-                <Route path="/login" element={<Navigate to="/landingpage" replace />} />
-                <Route path="/cadastro" element={<Navigate to="/landingpage" replace />} />
-                <Route path="/profissional/login" element={<Navigate to="/profissional/dashboard" replace />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/cadastro" element={<Cadastro />} />
+                <Route path="/profissional/login" element={<ProfissionalLogin />} />
                 <Route path="/profissional/dashboard" element={<ProfissionalDashboard />} />
 
                 <Route
@@ -46,6 +51,8 @@ function App() {
                     path="/Unidades"
                     element={<Unidades />}
                 />
+
+                <Route path="*" element={<Navigate to="/landingpage" replace />} />
             </Routes>
 
         </BrowserRouter>

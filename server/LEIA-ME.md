@@ -1,30 +1,29 @@
-# SaquaCare — modo de demonstração
+# Servidor de demonstração SaquaCare
 
-O protótipo deve ser executado sem conexão com PostgreSQL. Cadastro e login
-estão desativados; **Acessar demonstração** abre a área de demonstração sem
-autenticação. Agendamentos de exemplo ficam apenas no armazenamento local do
-navegador e não são enviados ao servidor.
+O servidor não conecta nem grava dados em banco. Para ativar a conversa com a
+Luma, assistente SaquaCare AI, configure a API Claude da Anthropic:
 
-O formulário pode encaminhar feedbacks automaticamente para
-`saquacare2026@gmail.com` usando Google Apps Script. Para habilitar, siga os
-passos de configuração no [README principal](../README.md) e configure
-`VITE_GOOGLE_APPS_SCRIPT_URL`. Sem essa configuração, o formulário oferece
-o e-mail como alternativa. Nenhuma resposta é gravada no banco de dados.
+1. Copie `.env.example` para `.env` e preencha `ANTHROPIC_API_KEY`. A chave
+   permanece no servidor; nunca use uma variável `VITE_` para ela.
+2. Instale as dependências e inicie o serviço:
 
-A demonstração inclui o widget VLibras oficial, carregado de
-`https://vlibras.gov.br/app/vlibras-plugin.js`, e por isso requer internet para
-essa ferramenta. O restante das opções de acessibilidade funciona no navegador.
+   ```powershell
+   npm install
+   npm run dev
+   ```
 
-## Executar o frontend
+3. Inicie o frontend em outro terminal, na raiz do repositório, com `npm run
+   dev`. O proxy do Vite encaminha `/api` para `http://127.0.0.1:3000`.
 
-Na raiz do projeto:
+O endpoint `POST /api/chat` valida tamanho e formato da conversa, limita
+solicitações, aplica filtros de privacidade antes de encaminhar as mensagens à
+Anthropic e não registra o conteúdo das conversas. O histórico é transitório
+no navegador e fica limitado às mensagens recentes. Esses filtros não garantem
+a remoção de todo dado identificável; visitantes não devem enviar informações
+pessoais ou clínicas. O uso da IA requer consentimento explícito no painel e
+pode gerar custos. A Anthropic processa as mensagens conforme suas políticas.
 
-```bash
-npm install
-npm run dev
-```
-
-Não é necessário iniciar o servidor da pasta `server/` nem configurar um banco
-de dados para a demonstração. Se o servidor for iniciado, ele disponibiliza
-somente `/api/health`; as demais rotas `/api` retornam `503` e não acessam o
-banco de dados.
+`GET /api/health` informa se a chave está configurada, sem revelar seu valor.
+Configure `CORS_ORIGINS` com as origens permitidas ao publicar o backend.
+`ANTHROPIC_MODEL` pode ser alterado no ambiente; o padrão é
+`claude-sonnet-5-5`.

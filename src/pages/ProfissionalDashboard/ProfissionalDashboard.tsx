@@ -575,6 +575,7 @@ export default function ProfissionalDashboard() {
                         <button
                             key={item.id}
                             type="button"
+                            aria-label={item.label}
                             className={
                                 abaAtiva === item.id
                                     ? "menu-item active"
@@ -597,6 +598,7 @@ export default function ProfissionalDashboard() {
                                 ? "menu-item menu-item--perfil active"
                                 : "menu-item menu-item--perfil"
                         }
+                        aria-label="Meu perfil"
                         aria-current={abaAtiva === "perfil" ? "page" : undefined}
                         onClick={() => setAbaAtiva("perfil")}
                     >
@@ -612,6 +614,7 @@ export default function ProfissionalDashboard() {
                     <button
                         type="button"
                         className="menu-item menu-item--sair"
+                        aria-label="Sair"
                         onClick={handleSair}
                     >
                         <span className="menu-icon" aria-hidden="true">

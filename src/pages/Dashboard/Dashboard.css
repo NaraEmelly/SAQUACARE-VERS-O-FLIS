@@ -1883,6 +1883,14 @@ button.summary-card {
         white-space: normal;
     }
 
+    .dashboard:not(.prof-dashboard) .menu-item > span:not(.menu-icon) {
+        display: none;
+    }
+
+    .dashboard:not(.prof-dashboard) .menu-item.active > span:not(.menu-icon) {
+        display: block;
+    }
+
     .dashboard:not(.prof-dashboard) .menu-item:hover {
         transform: none;
     }
@@ -1930,6 +1938,14 @@ button.summary-card {
         flex: 0 0 44px;
         padding: 4px 1px;
         font-size: 0;
+    }
+
+    .dashboard:not(.prof-dashboard) .sidebar-bottom .menu-item.active {
+        width: 64px;
+        min-width: 64px;
+        flex-basis: 64px;
+        font-size: 0.55rem;
+        line-height: 1;
     }
 
     .dashboard:not(.prof-dashboard) .sidebar-bottom .menu-item--perfil {
@@ -2015,6 +2031,12 @@ button.summary-card {
         width: 40px;
         min-width: 40px;
         flex-basis: 40px;
+    }
+
+    .dashboard:not(.prof-dashboard) .sidebar-bottom .menu-item.active {
+        width: 60px;
+        min-width: 60px;
+        flex-basis: 60px;
     }
 
     .dashboard:not(.prof-dashboard) .sidebar-bottom .menu-icon {

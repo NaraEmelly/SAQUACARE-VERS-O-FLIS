@@ -4,27 +4,46 @@ import "./AccessibilityToolbar.css";
 
 export default function AccessibilityToolbar() {
     const [aberto, setAberto] = useState(false);
-    const [textoAmpliado, setTextoAmpliado] = useState(false);
+    const [tamanhoTexto, setTamanhoTexto] = useState(100);
     const [altoContraste, setAltoContraste] = useState(false);
+    const [escalaCinza, setEscalaCinza] = useState(false);
+    const [linksDestacados, setLinksDestacados] = useState(false);
+    const [espacamentoAmpliado, setEspacamentoAmpliado] = useState(false);
     const [lendo, setLendo] = useState(false);
     const leituraDisponivel = typeof window !== "undefined" && "speechSynthesis" in window;
     const alternadorRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
-        document.documentElement.classList.toggle(
-            "saquacare-texto-ampliado",
-            textoAmpliado
-        );
+        const tamanhoOriginal = document.documentElement.style.fontSize;
+        document.documentElement.style.fontSize = `${tamanhoTexto}%`;
         document.body.classList.toggle(
             "saquacare-alto-contraste",
             altoContraste
         );
+        document.body.classList.toggle("saquacare-escala-cinza", escalaCinza);
+        document.body.classList.toggle(
+            "saquacare-links-destacados",
+            linksDestacados
+        );
+        document.body.classList.toggle(
+            "saquacare-espacamento-ampliado",
+            espacamentoAmpliado
+        );
 
         return () => {
-            document.documentElement.classList.remove("saquacare-texto-ampliado");
+            document.documentElement.style.fontSize = tamanhoOriginal;
             document.body.classList.remove("saquacare-alto-contraste");
+            document.body.classList.remove("saquacare-escala-cinza");
+            document.body.classList.remove("saquacare-links-destacados");
+            document.body.classList.remove("saquacare-espacamento-ampliado");
         };
-    }, [textoAmpliado, altoContraste]);
+    }, [
+        tamanhoTexto,
+        altoContraste,
+        escalaCinza,
+        linksDestacados,
+        espacamentoAmpliado,
+    ]);
 
     useEffect(() => {
         return () => window.speechSynthesis?.cancel();
@@ -77,6 +96,16 @@ export default function AccessibilityToolbar() {
         setLendo(true);
     }
 
+    function restaurarOpcoes() {
+        setTamanhoTexto(100);
+        setAltoContraste(false);
+        setEscalaCinza(false);
+        setLinksDestacados(false);
+        setEspacamentoAmpliado(false);
+        window.speechSynthesis?.cancel();
+        setLendo(false);
+    }
+
     return (
         <div className="acessibilidade" data-accessibility-widget>
             <a className="acessibilidade-pular-conteudo" href="#conteudo-principal" onClick={pularParaConteudo}>
@@ -89,19 +118,53 @@ export default function AccessibilityToolbar() {
                 hidden={!aberto}
             >
                 <h2>Acessibilidade</h2>
-                <button
-                    type="button"
-                    aria-pressed={textoAmpliado}
-                    onClick={() => setTextoAmpliado((atual) => !atual)}
-                >
-                    {textoAmpliado ? "Restaurar tamanho do texto" : "Aumentar tamanho do texto"}
-                </button>
+                <div className="acessibilidade-tamanho" role="group" aria-label="Tamanho do texto">
+                    <span>Tamanho do texto</span>
+                    <button
+                        type="button"
+                        aria-label="Diminuir tamanho do texto"
+                        onClick={() => setTamanhoTexto((atual) => Math.max(90, atual - 10))}
+                        disabled={tamanhoTexto <= 90}
+                    >
+                        A−
+                    </button>
+                    <output aria-live="polite">{tamanhoTexto}%</output>
+                    <button
+                        type="button"
+                        aria-label="Aumentar tamanho do texto"
+                        onClick={() => setTamanhoTexto((atual) => Math.min(140, atual + 10))}
+                        disabled={tamanhoTexto >= 140}
+                    >
+                        A+
+                    </button>
+                </div>
                 <button
                     type="button"
                     aria-pressed={altoContraste}
                     onClick={() => setAltoContraste((atual) => !atual)}
                 >
                     {altoContraste ? "Desativar alto contraste" : "Ativar alto contraste"}
+                </button>
+                <button
+                    type="button"
+                    aria-pressed={escalaCinza}
+                    onClick={() => setEscalaCinza((atual) => !atual)}
+                >
+                    {escalaCinza ? "Desativar escala de cinza" : "Ativar escala de cinza"}
+                </button>
+                <button
+                    type="button"
+                    aria-pressed={linksDestacados}
+                    onClick={() => setLinksDestacados((atual) => !atual)}
+                >
+                    {linksDestacados ? "Desmarcar links destacados" : "Destacar links"}
+                </button>
+                <button
+                    type="button"
+                    aria-pressed={espacamentoAmpliado}
+                    onClick={() => setEspacamentoAmpliado((atual) => !atual)}
+                >
+                    {espacamentoAmpliado ? "Restaurar espaçamento" : "Ampliar espaçamento"}
                 </button>
                 <button
                     type="button"
@@ -115,6 +178,9 @@ export default function AccessibilityToolbar() {
                         A leitura em voz alta não está disponível neste navegador.
                     </p>
                 )}
+                <button type="button" onClick={restaurarOpcoes}>
+                    Restaurar opções padrão
+                </button>
             </section>
             <button
                 type="button"

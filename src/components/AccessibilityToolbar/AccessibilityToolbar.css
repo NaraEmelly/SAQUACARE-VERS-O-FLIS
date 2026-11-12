@@ -1,7 +1,7 @@
 .acessibilidade {
   position: fixed;
   right: 16px;
-  bottom: 16px;
+  bottom: calc(100px + env(safe-area-inset-bottom));
   z-index: 10000;
   display: grid;
   justify-items: end;
@@ -11,9 +11,12 @@
 
 .acessibilidade-painel {
   display: grid;
-  width: min(300px, calc(100vw - 32px));
+  width: min(300px, calc(100vw - 80px));
+  max-height: min(68vh, 520px);
   gap: 10px;
   padding: 16px;
+  overflow-y: auto;
+  margin-right: 48px;
   border: 2px solid var(--color-primary-dark);
   border-radius: 12px;
   background: var(--color-surface);
@@ -48,6 +51,27 @@
   margin: 0;
   color: var(--color-primary-dark);
   font-size: 1.15rem;
+}
+
+.acessibilidade-tamanho {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary-dark);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.acessibilidade-tamanho button {
+  min-width: 44px;
+  padding: 8px;
+}
+
+.acessibilidade-tamanho output {
+  min-width: 42px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
 .acessibilidade-painel button,
@@ -98,10 +122,6 @@
   font-size: 0.9rem;
 }
 
-html.saquacare-texto-ampliado {
-  font-size: 125%;
-}
-
 body.saquacare-alto-contraste,
 body.saquacare-alto-contraste *:not(img):not(svg):not(path) {
   border-color: #ffff00 !important;
@@ -118,9 +138,42 @@ body.saquacare-alto-contraste :focus-visible {
   outline-offset: 3px;
 }
 
+body.saquacare-escala-cinza main {
+  filter: grayscale(1);
+}
+
+body.saquacare-links-destacados main a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+}
+
+body.saquacare-espacamento-ampliado main p,
+body.saquacare-espacamento-ampliado main li,
+body.saquacare-espacamento-ampliado main label,
+body.saquacare-espacamento-ampliado main td,
+body.saquacare-espacamento-ampliado main th {
+  line-height: 1.8 !important;
+}
+
 @media (max-width: 480px) {
   .acessibilidade {
-    right: 10px;
-    bottom: 10px;
+    right: 12px;
+    bottom: calc(100px + env(safe-area-inset-bottom));
+  }
+
+  .acessibilidade-painel {
+    max-height: min(62vh, 460px);
+    padding: 14px;
+  }
+}
+
+@media (max-height: 560px) {
+  .acessibilidade {
+    bottom: calc(100px + env(safe-area-inset-bottom));
+  }
+
+  .acessibilidade-painel {
+    max-height: 45vh;
   }
 }

@@ -321,6 +321,7 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
                         <button
                             key={item.id}
                             type="button"
+                            aria-label={item.label}
                             className={
                                 activeMenu === item.id
                                     ? "menu-item active"
@@ -347,6 +348,7 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
                                 ? "menu-item menu-item--perfil active"
                                 : "menu-item menu-item--perfil"
                         }
+                        aria-label="Meu perfil"
                         aria-current={activeMenu === "conta" ? "page" : undefined}
                         onClick={() => setActiveMenu("conta")}
                     >
@@ -359,6 +361,7 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
                     <button
                         type="button"
                         className="menu-item menu-item--sair"
+                        aria-label="Sair"
                         onClick={handleSair}
                     >
                         <span className="menu-icon">
