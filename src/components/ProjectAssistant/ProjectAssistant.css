@@ -12,6 +12,7 @@
     bottom: 76px;
     display: flex;
     width: min(390px, calc(100vw - 72px));
+    height: min(70vh, 640px);
     max-height: min(70vh, 640px);
     flex-direction: column;
     overflow: hidden;
@@ -172,7 +173,7 @@
 
 .saqua-assistant-messages {
     display: flex;
-    min-height: 120px;
+    min-height: 0;
     flex: 1 1 auto;
     flex-direction: column;
     gap: 12px;
@@ -223,6 +224,7 @@
 
 .saqua-assistant-suggestions {
     display: flex;
+    flex: 0 0 auto;
     flex-wrap: wrap;
     gap: 7px;
     padding: 0 12px 12px;
@@ -433,6 +435,7 @@
     .saqua-assistant-panel {
         bottom: 70px;
         width: min(370px, calc(100vw - 84px));
+        height: min(68vh, 560px);
         max-height: min(68vh, 560px);
         border-radius: 17px;
     }
