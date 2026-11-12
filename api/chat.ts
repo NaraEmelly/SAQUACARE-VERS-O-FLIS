@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { SYSTEM_PROMPT } from "../shared/assistantPrompt.js";
 
