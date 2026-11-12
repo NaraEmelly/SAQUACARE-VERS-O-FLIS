@@ -100,22 +100,45 @@ const MENU_PROFISSIONAL = [
     {
         id: "fila",
         label: "Minha Fila",
-        icon: "≋",
+        icon: (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 6h13M8 12h13M8 18h13" />
+                <circle cx="3.5" cy="6" r="1" />
+                <circle cx="3.5" cy="12" r="1" />
+                <circle cx="3.5" cy="18" r="1" />
+            </svg>
+        ),
     },
     {
         id: "calendario",
         label: "Agenda",
-        icon: "▣",
+        icon: (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="4.5" width="18" height="16.5" rx="3" />
+                <path d="M8 2.5v4M16 2.5v4M3 10h18" />
+            </svg>
+        ),
     },
     {
         id: "pacientes",
         label: "Meus Pacientes",
-        icon: "♙",
+        icon: (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="9" cy="8" r="3.5" />
+                <path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6" />
+                <path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.4c2 .8 3 2.8 3 5.6" />
+            </svg>
+        ),
     },
     {
         id: "rh",
         label: "Gestão Interna / RH",
-        icon: "⚙",
+        icon: (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="7" width="18" height="13" rx="2.5" />
+                <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18" />
+            </svg>
+        ),
     },
 ];
 
@@ -577,7 +600,12 @@ export default function ProfissionalDashboard() {
                         aria-current={abaAtiva === "perfil" ? "page" : undefined}
                         onClick={() => setAbaAtiva("perfil")}
                     >
-                        <span className="menu-icon">⚙</span>
+                        <span className="menu-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="8" r="4" />
+                                <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" />
+                            </svg>
+                        </span>
                         <span>Meu perfil</span>
                     </button>
 
