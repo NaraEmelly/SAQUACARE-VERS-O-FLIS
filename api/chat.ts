@@ -102,6 +102,38 @@ function extractAnswer(value: unknown) {
     .trim();
 }
 
+function describeProviderError(status: number, value: unknown) {
+  const providerError = isRecord(value) && isRecord(value.error) ? value.error : null;
+  const providerMessage =
+    providerError && typeof providerError.message === "string"
+      ? providerError.message.toLowerCase()
+      : "";
+
+  if (status === 401) {
+    return "A Anthropic recusou a chave da API. Confira ANTHROPIC_API_KEY nas variáveis da Vercel.";
+  }
+  if (status === 403) {
+    return "A chave da Anthropic não tem permissão para usar esta API ou modelo. Confira o acesso e o faturamento da conta.";
+  }
+  if (status === 404) {
+    return "O modelo configurado não foi encontrado. Remova ANTHROPIC_MODEL da Vercel ou confira o nome do modelo.";
+  }
+  if (
+    status === 400
+    && /(credit balance|billing|payment|purchase credits)/i.test(providerMessage)
+  ) {
+    return "A conta da API Anthropic precisa de faturamento ou créditos. Confira Plans & Billing no console da Anthropic.";
+  }
+  if (status === 400) {
+    return "A Anthropic rejeitou a solicitação (HTTP 400). Confira o modelo e as configurações da API na Vercel.";
+  }
+  if (status === 429 || status === 529) {
+    return "A IA está ocupada no momento. Aguarde um pouco e tente novamente.";
+  }
+
+  return `A Anthropic respondeu com erro HTTP ${status}. Confira a chave, o modelo e o acesso à API.`;
+}
+
 function allowRequest(request: ChatRequest, response: ChatResponse) {
   const forwardedFor = request.headers["x-forwarded-for"];
   const clientIp =
@@ -210,9 +242,7 @@ export default async function handler(request: ChatRequest, response: ChatRespon
         ? 503
         : 502;
       response.status(status).json({
-        error: status === 503
-          ? "A IA está ocupada no momento. Aguarde um pouco e tente novamente."
-          : "A IA não conseguiu responder. Verifique a chave e o modelo configurados no servidor.",
+        error: describeProviderError(providerResponse.status, providerBody),
       });
       return;
     }
