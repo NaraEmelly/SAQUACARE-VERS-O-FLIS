@@ -211,7 +211,7 @@ export default function ProjectAssistant() {
         {
             id: 0,
             role: "assistant",
-            text: "Oi! Sou a Luma. Posso conversar com você e mostrar as áreas do SaquaCare. Antes de usar o chat, confira o aviso de privacidade.",
+            text: "Olá! Seja bem-vindo(a) ao SaquaCare! 💙 Sou a Luma, assistente virtual da plataforma. Posso ajudar você a conhecer os recursos e esclarecer dúvidas. Antes de usar o chat com IA, confira o aviso de privacidade.",
         },
     ]);
     const idMensagem = useRef(1);
@@ -568,7 +568,7 @@ export default function ProjectAssistant() {
                         </span>
                         <div className="saqua-assistant-heading">
                             <strong>Luma</strong>
-                            <span>Guia virtual SaquaCare</span>
+                            <span>Assistente virtual SaquaCare AI</span>
                         </div>
                         <button
                             type="button"
