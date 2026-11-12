@@ -79,6 +79,22 @@ function normalize(text: string) {
         .trim();
 }
 
+function preferredPortugueseVoice(voices: SpeechSynthesisVoice[]) {
+    function naturalnessScore(voice: SpeechSynthesisVoice) {
+        const name = voice.name.toLowerCase();
+        let score = 0;
+        if (/natural|neural|wavenet|enhanced|premium/.test(name)) score += 10;
+        if (/online/.test(name)) score += 2;
+        if (/google|microsoft/.test(name)) score += 1;
+        if (voice.default) score += 1;
+        return score;
+    }
+
+    return [...voices].sort((first, second) =>
+        naturalnessScore(second) - naturalnessScore(first)
+    )[0];
+}
+
 function describeFeature(label: string) {
     const topic = normalize(label);
 
@@ -228,11 +244,7 @@ export default function ProjectAssistant() {
     const vozesPortuguesBrasil = vozesDisponiveis.filter((voice) =>
         voice.lang.toLowerCase().startsWith("pt-br")
     );
-    const vozPreferida =
-        vozesPortuguesBrasil.find((voice) =>
-            /maria|francisca|natural|neural/i.test(voice.name)
-        )
-        || vozesPortuguesBrasil[0];
+    const vozPreferida = preferredPortugueseVoice(vozesPortuguesBrasil);
     const vozAtiva =
         vozesDisponiveis.find((voice) => voice.voiceURI === vozSelecionada)
         || vozPreferida;
@@ -255,11 +267,7 @@ export default function ProjectAssistant() {
             const brazilianVoices = voices.filter((voice) =>
                 voice.lang.toLowerCase().startsWith("pt-br")
             );
-            const preferred =
-                brazilianVoices.find((voice) =>
-                    /maria|francisca|natural|neural/i.test(voice.name)
-                )
-                || brazilianVoices[0];
+            const preferred = preferredPortugueseVoice(brazilianVoices);
 
             setVozSelecionada((current) =>
                 current && voices.some((voice) => voice.voiceURI === current)
@@ -346,8 +354,8 @@ export default function ProjectAssistant() {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "pt-BR";
         if (vozAtiva) utterance.voice = vozAtiva;
-        utterance.rate = 0.94;
-        utterance.pitch = 1.03;
+        utterance.rate = 0.98;
+        utterance.pitch = 1;
         utterance.volume = 1;
         utterance.onstart = () => {
             if (idFalaAtual.current === falaId) setFalando(true);

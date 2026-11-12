@@ -17,35 +17,35 @@ const TOPICS: AnswerTopic[] = [
     {
         keywords: ["cancelar", "cancelamento", "desmarcar", "remarcar", "reagendar"],
         answers: [
-            "Na demonstração, consulte **Agendamentos** e explore as ações disponíveis para cada registro. Qualquer cancelamento ou alteração fica apenas no navegador e não avisa uma unidade de saúde nem altera um atendimento real.",
+            "Na demonstração, consulte Agendamentos e explore as ações disponíveis para cada registro. Qualquer cancelamento ou alteração fica apenas no navegador e não avisa uma unidade de saúde nem altera um atendimento real.",
         ],
     },
     {
         keywords: ["agend*", "marcar consulta", "marcar exame", "novo agendamento", "desmarcar", "cancelar consulta", "remarcar"],
         answers: [
-            "Na demonstração, abra **Agendamentos**, escolha **Novo agendamento**, selecione o tipo de atendimento, a unidade e a data, e confirme. Os registros são locais e fictícios: não confirmam uma consulta real.",
-            "Para explorar o fluxo, entre em **Agendamentos** e use **Novo agendamento**. Escolha as opções disponíveis e confirme. Esta é uma demonstração; ela não envia nem confirma pedidos em um serviço de saúde real.",
+            "Na demonstração, abra Agendamentos, escolha Novo agendamento, selecione o tipo de atendimento, a unidade e a data, e confirme. Os registros são locais e fictícios: não confirmam uma consulta real.",
+            "Para explorar o fluxo, entre em Agendamentos e use Novo agendamento. Escolha as opções disponíveis e confirme. Esta é uma demonstração; ela não envia nem confirma pedidos em um serviço de saúde real.",
         ],
     },
     {
         keywords: ["fila", "espera", "tempo de atendimento", "minha vez", "chamada"],
         answers: [
-            "A área **Fila de atendimento** mostra exemplos de status e espera para você conhecer a interface. Os dados são fictícios e não representam uma fila ou previsão em tempo real.",
-            "Você pode abrir **Fila de atendimento** pelo painel. A fila é demonstrativa; confirme a espera diretamente com a unidade de saúde, pois o SaquaCare não recebe dados ao vivo.",
+            "A área Fila de atendimento mostra exemplos de status e espera para você conhecer a interface. Os dados são fictícios e não representam uma fila ou previsão em tempo real.",
+            "Você pode abrir Fila de atendimento pelo painel. A fila é demonstrativa; confirme a espera diretamente com a unidade de saúde, pois o SaquaCare não recebe dados ao vivo.",
         ],
     },
     {
         keywords: ["vacin*", "caderneta", "calendario vacinal", "dose*", "imuniz*"],
         answers: [
-            "Na área **Vacinação**, você encontra conteúdo demonstrativo e pode explorar o registro de doses no navegador. Isso não atualiza sistemas oficiais. Para calendário e orientações atuais, consulte uma unidade de saúde ou o Ministério da Saúde: https://www.gov.br/saude/pt-br/vacinacao",
-            "O menu **Vacinação** permite explorar a carteira e exemplos de doses. Os registros da demonstração não substituem a caderneta nem são enviados ao SUS. Confira seu esquema vacinal com um profissional ou em https://www.gov.br/saude/pt-br/vacinacao",
+            "Na área Vacinação, você encontra conteúdo demonstrativo e pode explorar o registro de doses no navegador. Isso não atualiza sistemas oficiais. Para calendário e orientações atuais, consulte uma unidade de saúde ou o Ministério da Saúde: https://www.gov.br/saude/pt-br/vacinacao",
+            "O menu Vacinação permite explorar a carteira e exemplos de doses. Os registros da demonstração não substituem a caderneta nem são enviados ao SUS. Confira seu esquema vacinal com um profissional ou em https://www.gov.br/saude/pt-br/vacinacao",
         ],
     },
     {
         keywords: ["unidad*", "ubs", "posto de saude", "clinic*", "endereco", "onde atende", "localizacao", "mapa"],
         answers: [
-            "Abra **Unidades** para pesquisar e filtrar os locais apresentados na demonstração. Confira endereço, horários e atendimento diretamente com a unidade antes de se deslocar; os dados podem não estar atualizados.",
-            "A tela **Unidades** ajuda a explorar locais e informações de atendimento em Saquarema. Como este conteúdo é demonstrativo e pode mudar, confirme os detalhes com o serviço responsável.",
+            "Abra Unidades para pesquisar e filtrar os locais apresentados na demonstração. Confira endereço, horários e atendimento diretamente com a unidade antes de se deslocar; os dados podem não estar atualizados.",
+            "A tela Unidades ajuda a explorar locais e informações de atendimento em Saquarema. Como este conteúdo é demonstrativo e pode mudar, confirme os detalhes com o serviço responsável.",
         ],
     },
     {
@@ -58,7 +58,7 @@ const TOPICS: AnswerTopic[] = [
     {
         keywords: ["voz", "microfone", "reconhecimento de voz", "resposta falada"],
         answers: [
-            "No painel da Luma, **Voz on/off** controla a leitura das respostas e o botão de microfone permite ditar perguntas quando o navegador oferece esse recurso. O reconhecimento pode depender de permissões e serviços do navegador.",
+            "No painel da Luma, Voz on/off controla a leitura das respostas e o botão de microfone permite ditar perguntas quando o navegador oferece esse recurso. O reconhecimento pode depender de permissões e serviços do navegador.",
         ],
     },
     {
@@ -70,14 +70,14 @@ const TOPICS: AnswerTopic[] = [
     {
         keywords: ["tour", "passeio guiado", "guia pela pagina", "me mostra", "me ensina a usar"],
         answers: [
-            "O tour guiado destaca as áreas da tela uma a uma. Use **Próximo** para avançar ou **Encerrar** para sair; você pode continuar vendo a página enquanto o tour está ativo.",
+            "O tour guiado destaca as áreas da tela uma a uma. Use Próximo para avançar ou Encerrar para sair; você pode continuar vendo a página enquanto o tour está ativo.",
         ],
     },
     {
         keywords: ["senha", "esqueci", "recuperar acesso", "redefinir acesso", "trocar senha", "login", "entrar na conta", "cadastr*", "criar conta", "registrar"],
         answers: [
-            "O cadastro e o login fazem parte da demonstração. A recuperação automática de senha não está disponível. Não compartilhe sua senha no chat; se tiver dificuldade, procure a equipe pelos canais na seção **Contato**.",
-            "Você pode explorar **Entrar** e **Criar conta** na demonstração. O protótipo não oferece recuperação automática de senha e não é um serviço de autenticação oficial. Nunca envie sua senha aqui.",
+            "O cadastro e o login fazem parte da demonstração. A recuperação automática de senha não está disponível. Não compartilhe sua senha no chat; se tiver dificuldade, procure a equipe pelos canais na seção Contato.",
+            "Você pode explorar Entrar e Criar conta na demonstração. O protótipo não oferece recuperação automática de senha e não é um serviço de autenticação oficial. Nunca envie sua senha aqui.",
         ],
     },
     {
@@ -90,7 +90,7 @@ const TOPICS: AnswerTopic[] = [
     {
         keywords: ["perfil", "meus dados", "editar dados", "telefone cadastrado", "cartao sus"],
         answers: [
-            "A área **Meu perfil** permite explorar os campos demonstrativos. Evite inserir dados pessoais reais: as informações da demonstração ficam no armazenamento local deste navegador.",
+            "A área Meu perfil permite explorar os campos demonstrativos. Evite inserir dados pessoais reais: as informações da demonstração ficam no armazenamento local deste navegador.",
         ],
     },
     {
@@ -102,13 +102,13 @@ const TOPICS: AnswerTopic[] = [
     {
         keywords: ["feedback", "avaliar*", "sugestao*", "reclamar*", "opinar*"],
         answers: [
-            "Você pode enviar uma avaliação pela seção **Feedback** na página inicial. Não inclua informações pessoais ou clínicas; consulte o aviso do formulário antes de enviar.",
+            "Você pode enviar uma avaliação pela seção Feedback na página inicial. Não inclua informações pessoais ou clínicas; consulte o aviso do formulário antes de enviar.",
         ],
     },
     {
         keywords: ["contato*", "instagram", "equipe", "falar com alguem", "email", "e mail"],
         answers: [
-            "Os canais da equipe estão na seção **Contato** da página inicial. O perfil do projeto também aparece como **@saquacare_** no Instagram.",
+            "Os canais da equipe estão na seção Contato da página inicial. O perfil do projeto também aparece como @saquacare_ no Instagram.",
         ],
     },
     {
