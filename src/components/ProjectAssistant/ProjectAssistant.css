@@ -229,13 +229,16 @@
 .saqua-assistant-suggestions {
     display: flex;
     flex: 0 0 auto;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 7px;
-    padding: 0 12px 12px;
+    overflow-x: auto;
+    padding: 0 12px 10px;
+    scrollbar-width: thin;
 }
 
 .saqua-assistant-suggestions button,
 .saqua-assistant-tour-controls button {
+    flex: 0 0 auto;
     min-height: 34px;
     padding: 7px 10px;
     border: 1px solid var(--color-border-strong);
@@ -246,6 +249,7 @@
     font-size: 0.7rem;
     font-weight: 600;
     text-align: left;
+    white-space: nowrap;
     cursor: pointer;
 }
 
@@ -293,6 +297,53 @@
     border-color: var(--color-border);
     background: transparent;
     color: var(--color-text-secondary);
+}
+
+.saqua-assistant-tour-dock {
+    position: absolute;
+    bottom: 76px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 14px;
+    background: var(--color-surface);
+    box-shadow: 0 8px 24px rgb(var(--color-primary-dark-rgb) / 0.2);
+}
+
+.saqua-assistant-tour-dock > span {
+    padding: 0 4px;
+    color: var(--color-text-secondary);
+    font-size: 0.7rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.saqua-assistant-tour-dock button {
+    min-height: 32px;
+    padding: 6px 9px;
+    border: 1px solid var(--color-primary);
+    border-radius: 9px;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font: inherit;
+    font-size: 0.7rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.saqua-assistant-tour-dock .saqua-assistant-tour-dock-end {
+    border-color: var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+}
+
+.saqua-assistant-tour-dock button:focus-visible {
+    outline: 3px solid #f0b429;
+    outline-offset: 2px;
 }
 
 .saqua-assistant-form {

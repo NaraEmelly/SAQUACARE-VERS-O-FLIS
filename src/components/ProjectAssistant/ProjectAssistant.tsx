@@ -398,6 +398,7 @@ export default function ProjectAssistant() {
             steps[0].target.click();
         }
         setTour({ steps, index: 0 });
+        setAberto(false);
         const firstStep = steps[0];
         const text = `Vamos começar! ${firstStep.title}: ${firstStep.explanation} Use “Próximo” para continuar.`;
         adicionarConversa("assistant", text);
@@ -779,11 +780,23 @@ export default function ProjectAssistant() {
                 </section>
             )}
 
+            {tour && !aberto && (
+                <div className="saqua-assistant-tour-dock" role="group" aria-label="Controles do tour guiado">
+                    <span>Tour {tour.index + 1}/{tour.steps.length}</span>
+                    <button type="button" onClick={avancarTour}>
+                        {tour.index + 1 === tour.steps.length ? "Concluir" : "Próximo"}
+                    </button>
+                    <button type="button" className="saqua-assistant-tour-dock-end" onClick={encerrarTour}>
+                        Encerrar
+                    </button>
+                </div>
+            )}
+
             <button
                 type="button"
                 ref={launcherRef}
                 className="saqua-assistant-launcher"
-                aria-label={aberto ? "Fechar assistente SaquaCare" : "Abrir assistente SaquaCare"}
+                aria-label={aberto ? "Fechar assistente SaquaCare" : tour ? "Abrir controles do tour guiado" : "Abrir assistente SaquaCare"}
                 aria-expanded={aberto}
                 onClick={() => {
                     if (aberto) {
