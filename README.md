@@ -2,7 +2,6 @@
 
 Sistema de gestão de saúde desenvolvido com React + TypeScript + Vite.
 
-
 ## Tech Stack
 
 - **Frontend:** React 19, TypeScript, Vite
