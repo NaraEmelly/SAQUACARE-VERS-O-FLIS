@@ -52,50 +52,26 @@ O widget VLibras é carregado do serviço oficial (`vlibras.gov.br`), portanto
 precisa de conexão com a internet; a ferramenta de acessibilidade também inclui
 atalho para o conteúdo, ajuste de tamanho do texto, alto contraste, escala de
 cinza, destaque de links, espaçamento ampliado e leitura em voz alta.
-O guia virtual Luma (SaquaCare AI) conversa com a API Claude da Anthropic, responde perguntas
-abertas em português e percorre as telas em um tour local. Antes da primeira
-mensagem, cada visitante precisa aceitar um aviso: as mensagens e parte do
-contexto recente são enviados à Anthropic, conforme a política de privacidade
-do provedor, e o uso da API pode gerar custos. O SaquaCare não salva a conversa
-nem a chave da API no navegador. Não envie dados pessoais ou clínicos; o filtro
-do servidor é uma proteção adicional, não uma garantia de anonimização. A Luma
-oferece educação geral, não diagnóstico nem orientação médica individual. A voz
-em português do Brasil pode ser selecionada no painel; o reconhecimento de voz
-depende do suporte, das permissões e do serviço do navegador. O tour continua
-disponível sem aceitar o uso da IA.
+O guia virtual Luma responde a perguntas frequentes usando conteúdo preparado
+pela equipe e percorre as telas em um tour local. As respostas são selecionadas
+no próprio navegador: não há chamada a serviços de IA, chave ou cobrança por
+provedor. Como não é uma IA generativa, a Luma pode não entender perguntas fora
+dos assuntos preparados. A conversa fica apenas na memória da página e
+desaparece ao atualizá-la ou fechá-la. Não envie dados pessoais ou clínicos. A
+Luma oferece informações gerais sobre o projeto, não diagnóstico nem orientação
+médica individual. A voz em português do Brasil pode ser selecionada no painel;
+o reconhecimento de voz depende do suporte e das permissões do navegador e o
+processamento de áudio pode depender de serviços fornecidos pelo navegador.
 Os dados de exemplo do protótipo são fictícios e ficam no armazenamento local do
 navegador.
 
-### Configurar a Luma com Claude
+### Luma local
 
-1. Instale as dependências do servidor, copie `server/.env.example` para
-   `server/.env` e preencha `ANTHROPIC_API_KEY` com uma chave da API Anthropic.
-   A chave deve permanecer somente no servidor e não deve ser compartilhada ou
-   adicionada ao repositório.
-2. Em um terminal, inicie o servidor:
-
-   ```powershell
-   cd server
-   npm install
-   npm run dev
-   ```
-
-3. Em outro terminal, na raiz do projeto, inicie o frontend:
-
-   ```powershell
-   npm install
-   npm run dev
-   ```
-
-   O Vite encaminha `/api` ao servidor local na porta 3000. Se o frontend for
-   publicado, configure um backend seguro para a API e ajuste `CORS_ORIGINS`;
-   não exponha `ANTHROPIC_API_KEY` em variáveis `VITE_`.
-
-   Na implantação do frontend na Vercel, configure também `ANTHROPIC_API_KEY`
-   nas variáveis de ambiente do projeto e faça um novo deploy. A função
-   `api/chat.ts` atende `/api/chat` na mesma origem do site; mantenha a chave
-   somente no servidor. Sem essa configuração, o painel informa que a IA não
-   está habilitada, mas o tour guiado continua disponível.
+A Luma funciona junto com o frontend, sem configurar servidor de IA ou variáveis
+de ambiente. Para desenvolvê-la, execute `npm install` e `npm run dev` na raiz.
+As respostas preparadas cobrem dúvidas sobre agendamentos demonstrativos, fila,
+vacinação, unidades, acessibilidade, cadastro, privacidade e recursos do
+projeto. Para perguntas fora dessa base, a Luma informa suas limitações.
 
 ### Prerequisites
 

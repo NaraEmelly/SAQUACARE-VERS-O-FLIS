@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { getLocalAssistantReply } from "../../../shared/assistantKnowledge";
 import "./ProjectAssistant.css";
 
 type MessageRole = "assistant" | "visitor";
@@ -76,10 +77,6 @@ function normalize(text: string) {
         .replace(/[\u0300-\u036f]/g, "")
         .toLowerCase()
         .trim();
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-    return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function describeFeature(label: string) {
@@ -201,8 +198,6 @@ export default function ProjectAssistant() {
     const [ouvindo, setOuvindo] = useState(false);
     const [falaAtiva, setFalaAtiva] = useState(true);
     const [falando, setFalando] = useState(false);
-    const [aceitouAnthropic, setAceitouAnthropic] = useState(false);
-    const [enviando, setEnviando] = useState(false);
     const [vozesDisponiveis, setVozesDisponiveis] = useState<SpeechSynthesisVoice[]>([]);
     const [vozSelecionada, setVozSelecionada] = useState("");
     const [erroVoz, setErroVoz] = useState("");
@@ -211,12 +206,11 @@ export default function ProjectAssistant() {
         {
             id: 0,
             role: "assistant",
-            text: "Olá! Seja bem-vindo(a) ao SaquaCare! 💙 Sou a Luma, assistente virtual da plataforma. Posso ajudar você a conhecer os recursos e esclarecer dúvidas. Antes de usar o chat com IA, confira o aviso de privacidade.",
+            text: "Olá! Sou a Luma, guia local do SaquaCare. Posso responder dúvidas comuns sobre a demonstração; minhas respostas são preparadas pela equipe, não sou uma IA generativa e não uso um serviço pago. Não envie dados pessoais ou clínicos.",
         },
     ]);
     const idMensagem = useRef(1);
     const idFalaAtual = useRef(0);
-    const requestRef = useRef<AbortController | null>(null);
     const areaMensagensRef = useRef<HTMLDivElement>(null);
     const perguntaRef = useRef<HTMLInputElement>(null);
     const painelRef = useRef<HTMLElement>(null);
@@ -292,7 +286,6 @@ export default function ProjectAssistant() {
             if (event.key !== "Escape") return;
 
             pararFala();
-            requestRef.current?.abort("assistant-closed");
             reconhecimentoRef.current?.stop();
             reconhecimentoRef.current = null;
             setOuvindo(false);
@@ -324,7 +317,6 @@ export default function ProjectAssistant() {
     useEffect(() => {
         return () => {
             reconhecimentoRef.current?.stop();
-            requestRef.current?.abort("assistant-unmounted");
             idFalaAtual.current += 1;
             window.speechSynthesis?.cancel();
             document
@@ -373,7 +365,6 @@ export default function ProjectAssistant() {
 
     function fecharAssistente() {
         pararFala();
-        requestRef.current?.abort("assistant-closed");
         if (reconhecimentoRef.current) {
             reconhecimentoRef.current.onend = null;
             reconhecimentoRef.current.stop();
@@ -427,79 +418,23 @@ export default function ProjectAssistant() {
         falar(text);
     }
 
-    async function enviarPergunta(question = mensagem) {
+    function enviarPergunta(question = mensagem) {
         const pergunta = question.trim();
-        if (!pergunta || enviando || !aceitouAnthropic) return;
+        if (!pergunta) return;
 
         adicionarConversa("visitor", pergunta);
         setMensagem("");
         setErroVoz("");
 
-        if (normalize(pergunta).includes("tour")) {
+        if (normalize(pergunta).split(/\s+/).includes("tour")) {
             iniciarTour();
             return;
         }
 
         if (tour) encerrarTour();
-        const history = conversas
-            .filter((item) => item.id > 0)
-            .slice(-9)
-            .map((item) => ({
-                role: item.role === "visitor" ? "user" as const : "assistant" as const,
-                content: item.text,
-            }));
-        const messages = [...history, { role: "user" as const, content: pergunta }];
-        const controller = new AbortController();
-        requestRef.current = controller;
-        setEnviando(true);
-        const timeout = window.setTimeout(() => controller.abort("request-timeout"), 30_000);
-
-        try {
-            const response = await fetch("/api/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ messages: messages.slice(-10) }),
-                signal: controller.signal,
-            });
-            const payload: unknown = await response.json();
-            if (!isRecord(payload)) {
-                throw new Error("O servidor retornou uma resposta inválida.");
-            }
-            if (!response.ok) {
-                throw new Error(
-                    typeof payload.error === "string"
-                        ? payload.error
-                        : "Não foi possível obter uma resposta da IA.",
-                );
-            }
-            if (typeof payload.answer !== "string" || !payload.answer.trim()) {
-                throw new Error("A IA retornou uma resposta vazia. Tente reformular a pergunta.");
-            }
-
-            adicionarConversa("assistant", payload.answer.trim());
-            falar(payload.answer.trim());
-        } catch (error) {
-            if (
-                controller.signal.reason === "assistant-closed"
-                || controller.signal.reason === "assistant-unmounted"
-            ) {
-                return;
-            }
-
-            const errorMessage = controller.signal.aborted
-                ? "A resposta demorou muito e foi cancelada. Tente novamente."
-                : error instanceof TypeError
-                    ? "Não consegui conectar ao servidor da IA. Verifique se o servidor está ativo."
-                    : error instanceof Error
-                        ? error.message
-                        : "Não foi possível obter uma resposta da IA.";
-            adicionarConversa("assistant", errorMessage);
-            falar(errorMessage);
-        } finally {
-            window.clearTimeout(timeout);
-            if (requestRef.current === controller) requestRef.current = null;
-            setEnviando(false);
-        }
+        const answer = getLocalAssistantReply(pergunta);
+        adicionarConversa("assistant", answer);
+        falar(answer);
     }
 
     function ouvirPergunta() {
@@ -569,7 +504,7 @@ export default function ProjectAssistant() {
                         </span>
                         <div className="saqua-assistant-heading">
                             <strong>Luma</strong>
-                            <span>Assistente virtual SaquaCare AI</span>
+                            <span>Guia local do SaquaCare</span>
                         </div>
                         <button
                             type="button"
@@ -596,34 +531,9 @@ export default function ProjectAssistant() {
                         </button>
                     </header>
 
-                            <p className="saqua-assistant-notice">
-                                O chat com IA só é ativado após seu aceite. Não envie dados pessoais ou clínicos.
-                            </p>
-
-                            {!aceitouAnthropic && (
-                                <div className="saqua-assistant-consent" role="group" aria-labelledby="saqua-assistant-consent-title">
-                                    <strong id="saqua-assistant-consent-title">Ativar conversa com IA?</strong>
-                                    <p>
-                                        Suas mensagens e parte do contexto recente serão enviadas à Anthropic para gerar respostas.
-                                        O SaquaCare não salva a conversa; a Anthropic a processa conforme a{" "}
-                                        <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noreferrer">
-                                            política de privacidade
-                                        </a>
-                                        . O uso da API pode gerar custos. Não envie dados pessoais ou clínicos.
-                                    </p>
-                                    <button
-                                        type="button"
-                                        className="saqua-assistant-consent-accept"
-                                        onClick={() => {
-                                            setAceitouAnthropic(true);
-                                            setErroVoz("");
-                                        }}
-                                    >
-                                        Aceitar e conversar
-                                    </button>
-                                    <span>Você também pode usar o tour guiado sem aceitar.</span>
-                                </div>
-                            )}
+                    <p className="saqua-assistant-notice">
+                        Respostas locais, sem envio para IA externa. Não informe dados pessoais ou clínicos.
+                    </p>
 
                     {vozesPortuguesBrasil.length > 0 && (
                         <label className="saqua-assistant-voice-picker">
@@ -662,14 +572,6 @@ export default function ProjectAssistant() {
                                 <p>{item.text}</p>
                             </div>
                         ))}
-                        {enviando && (
-                            <div className="saqua-assistant-message" role="status" aria-label="Luma está respondendo">
-                                <span className="saqua-message-avatar" aria-hidden="true">
-                                    <RobotIcon speaking />
-                                </span>
-                                <p>A Luma está pensando...</p>
-                            </div>
-                        )}
                         <span className="saqua-assistant-message-end" />
                     </div>
 
@@ -685,7 +587,7 @@ export default function ProjectAssistant() {
                                 </button>
                             </div>
                         </div>
-                    ) : aceitouAnthropic ? (
+                    ) : (
                         <div
                             className="saqua-assistant-suggestions"
                             role="group"
@@ -695,8 +597,7 @@ export default function ProjectAssistant() {
                                 <button
                                     type="button"
                                     key={suggestion}
-                                    disabled={enviando}
-                                    onClick={() => void enviarPergunta(suggestion)}
+                                    onClick={() => enviarPergunta(suggestion)}
                                 >
                                     {suggestion}
                                 </button>
@@ -709,23 +610,13 @@ export default function ProjectAssistant() {
                                 Fazer tour guiado
                             </button>
                         </div>
-                    ) : (
-                        <div className="saqua-assistant-suggestions">
-                            <button
-                                type="button"
-                                className="saqua-assistant-tour-start"
-                                onClick={iniciarTour}
-                            >
-                                Fazer tour guiado sem IA
-                            </button>
-                        </div>
                     )}
 
-                    {aceitouAnthropic && <form
+                    <form
                         className="saqua-assistant-form"
                         onSubmit={(event) => {
                             event.preventDefault();
-                            void enviarPergunta();
+                            enviarPergunta();
                         }}
                     >
                         <label className="saqua-assistant-input-label" htmlFor="saqua-assistant-question">
@@ -740,7 +631,6 @@ export default function ProjectAssistant() {
                                 onChange={(event) => setMensagem(event.target.value)}
                                 placeholder="Escreva sua dúvida..."
                                 autoComplete="off"
-                                disabled={enviando}
                             />
                             <button
                                 type="button"
@@ -766,7 +656,7 @@ export default function ProjectAssistant() {
                                 type="submit"
                                 className="saqua-assistant-send"
                                 aria-label="Enviar pergunta"
-                                disabled={!mensagem.trim() || enviando}
+                                disabled={!mensagem.trim()}
                             >
                                 ↑
                             </button>
@@ -776,7 +666,7 @@ export default function ProjectAssistant() {
                                 ? "O reconhecimento de voz depende do navegador. Não fale dados pessoais ou clínicos."
                                 : "Voz indisponível neste navegador; você ainda pode escrever.")}
                         </p>
-                    </form>}
+                    </form>
                 </section>
             )}
 
