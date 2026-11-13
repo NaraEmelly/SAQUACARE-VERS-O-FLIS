@@ -170,6 +170,12 @@ body.saquacare-espacamento-ampliado main th {
   }
 }
 
+@media (max-width: 900px) {
+  .acessibilidade--dashboard {
+  bottom: calc(92px + env(safe-area-inset-bottom));
+  }
+}
+
 @media (max-height: 560px) {
   .acessibilidade {
     bottom: calc(12px + env(safe-area-inset-bottom));

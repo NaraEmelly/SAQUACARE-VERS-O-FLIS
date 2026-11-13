@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import type { MouseEvent } from "react";
 import "./AccessibilityToolbar.css";
 
-export default function AccessibilityToolbar() {
+export default function AccessibilityToolbar({
+    dashboardNavigation = false,
+}: {
+    dashboardNavigation?: boolean;
+}) {
     const [aberto, setAberto] = useState(false);
     const [tamanhoTexto, setTamanhoTexto] = useState(100);
     const [altoContraste, setAltoContraste] = useState(false);
@@ -107,7 +111,10 @@ export default function AccessibilityToolbar() {
     }
 
     return (
-        <div className="acessibilidade" data-accessibility-widget>
+        <div
+            className={`acessibilidade${dashboardNavigation ? " acessibilidade--dashboard" : ""}`}
+            data-accessibility-widget
+        >
             <a className="acessibilidade-pular-conteudo" href="#conteudo-principal" onClick={pularParaConteudo}>
                 Pular para o conteúdo principal
             </a>

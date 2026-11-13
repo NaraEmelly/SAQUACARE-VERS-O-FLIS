@@ -16,12 +16,17 @@ import NavbarGuidelines from "../pages/NavbarGuidelines/NavbarGuidelines";
 function AppContent() {
     const location = useLocation();
     const isNavbarGuidelines = location.pathname === "/navbar-guidelines";
+    const isDashboardPage = [
+        "/dashboard",
+        "/agendamentos",
+        "/profissional/dashboard",
+    ].includes(location.pathname);
 
     return (
         <>
             {!isNavbarGuidelines && (
                 <>
-                    <AccessibilityToolbar />
+                    <AccessibilityToolbar dashboardNavigation={isDashboardPage} />
                     <ProjectAssistant />
                 </>
             )}
