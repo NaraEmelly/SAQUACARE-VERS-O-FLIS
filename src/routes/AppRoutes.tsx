@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import Loading from "../components/Loading/Loading";
 import AccessibilityToolbar from "../components/AccessibilityToolbar/AccessibilityToolbar";
@@ -11,12 +11,20 @@ import ProfissionalDashboard from "../pages/ProfissionalDashboard/ProfissionalDa
 import Login from "../pages/Login/Login";
 import Cadastro from "../pages/Cadastro/Cadastro";
 import ProfissionalLogin from "../pages/ProfissionalLogin/ProfissionalLogin";
+import NavbarGuidelines from "../pages/NavbarGuidelines/NavbarGuidelines";
 
-function App() {
+function AppContent() {
+    const location = useLocation();
+    const isNavbarGuidelines = location.pathname === "/navbar-guidelines";
+
     return (
-        <BrowserRouter>
-            <AccessibilityToolbar />
-            <ProjectAssistant />
+        <>
+            {!isNavbarGuidelines && (
+                <>
+                    <AccessibilityToolbar />
+                    <ProjectAssistant />
+                </>
+            )}
             <Routes>
                 <Route 
                     path="/" 
@@ -32,6 +40,10 @@ function App() {
                 <Route
                     path="/landingpage"
                     element={<LandingPage />}
+                />
+                <Route
+                    path="/navbar-guidelines"
+                    element={<NavbarGuidelines />}
                 />
 
                 <Route path="/login" element={<Login />} />
@@ -54,7 +66,14 @@ function App() {
 
                 <Route path="*" element={<Navigate to="/landingpage" replace />} />
             </Routes>
+        </>
+    );
+}
 
+function App() {
+    return (
+        <BrowserRouter>
+            <AppContent />
         </BrowserRouter>
     );
 }
