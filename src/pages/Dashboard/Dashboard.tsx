@@ -338,8 +338,6 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
         const termo = valor.trim().toLocaleLowerCase("pt-BR").replace(/\s+/g, "");
         if (termo === "farmaaura") {
             setVideoSecreto({ titulo: "Farma Aura", id: "dQw4w9WgXcQ" });
-        } else if (termo === "67" || termo === "67.") {
-            setVideoSecreto({ titulo: "SIX SEVEN (SLOWED)", id: "uv1FgLiQGWw" });
         }
     }
 
