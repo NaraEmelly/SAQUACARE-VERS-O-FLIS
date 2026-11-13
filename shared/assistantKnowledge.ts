@@ -120,7 +120,7 @@ const TOPICS: AnswerTopic[] = [
     {
         keywords: ["agente", "inteligencia artificial", "ia", "luma", "chatbot", "assistente", "responder", "ajuda", "ajudar"],
         answers: [
-            "Sou a Luma, guia local do SaquaCare. Respondo a perguntas comuns sobre agendamentos demonstrativos, fila, vacinação, unidades, acessibilidade, cadastro e privacidade. Minhas respostas são preparadas pela equipe; não sou uma IA generativa e posso não entender perguntas fora desses temas.",
+            "Sou a Luma, guia do SaquaCare. Posso ajudar você a conhecer os recursos de agendamento, fila, vacinação, unidades, acessibilidade e perfil. Escolha um assunto para começar.",
         ],
     },
     {
@@ -175,8 +175,10 @@ export function getLocalAssistantReply(input: string) {
     if (
         /\b(?:agendamento|consulta|fila|atendimento)\b[\s\S]{0,40}\b(?:real|confirmado|confirmada|tempo real|valido|valida)\b/.test(question)
         || /\b(?:real|confirmado|confirmada|tempo real)\b[\s\S]{0,40}\b(?:agendamento|consulta|fila|atendimento)\b/.test(question)
+        || /\b(?:dados|registros|informacoes)\b[\s\S]{0,30}\b(?:reais|ficticios|atualizados)\b/.test(question)
+        || /\b(?:reais|ficticios|atualizados)\b[\s\S]{0,30}\b(?:dados|registros|informacoes)\b/.test(question)
     ) {
-        return "Esta página é uma apresentação dos recursos do SaquaCare. As ações feitas aqui não são enviadas a uma unidade nem confirmam atendimento; para marcar ou confirmar uma consulta, fale diretamente com o serviço de saúde.";
+        return "Os dados exibidos ajudam a apresentar os recursos do SaquaCare, mas não estão conectados a registros de serviços de saúde. Para confirmar um atendimento, fale diretamente com a unidade.";
     }
 
     if (
@@ -197,5 +199,5 @@ export function getLocalAssistantReply(input: string) {
         }
     }
 
-    return "Ainda não tenho uma resposta preparada para esse assunto. Consigo ajudar com agendamentos demonstrativos, fila, vacinação, unidades, acessibilidade, cadastro, privacidade e recursos do SaquaCare. Não forneço diagnóstico nem orientação médica individual.";
+    return "Ainda não tenho uma resposta preparada para esse assunto. Posso ajudar com agendamentos, fila, vacinação, unidades, acessibilidade, cadastro, privacidade e recursos do SaquaCare. Não forneço diagnóstico nem orientação médica individual.";
 }
