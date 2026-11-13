@@ -222,7 +222,10 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
         ProfissionalSaude[]
     >([]);
     const [buscaProf, setBuscaProf] = useState("");
-    const [videoSecretoAberto, setVideoSecretoAberto] = useState(false);
+    const [videoSecreto, setVideoSecreto] = useState<{
+        titulo: string;
+        id: string;
+    } | null>(null);
     const buscaProfRef = useRef<HTMLInputElement>(null);
     const fecharVideoRef = useRef<HTMLButtonElement>(null);
     const [tipoProf, setTipoProf] = useState("todos");
@@ -248,7 +251,7 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
     }, []);
 
     useEffect(() => {
-            if (!videoSecretoAberto) return;
+            if (!videoSecreto) return;
 
             const overflowOriginal = document.body.style.overflow;
             document.body.style.overflow = "hidden";
@@ -256,8 +259,7 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
 
             function fecharComEscape(event: KeyboardEvent) {
                 if (event.key === "Escape") {
-                    setVideoSecretoAberto(false);
-                    window.requestAnimationFrame(() => buscaProfRef.current?.focus());
+                    fecharVideoSecreto();
                 }
             }
 
@@ -266,7 +268,7 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
                 document.body.style.overflow = overflowOriginal;
                 document.removeEventListener("keydown", fecharComEscape);
             };
-    }, [videoSecretoAberto]);
+    }, [videoSecreto]);
 
     const hojeIso = useMemo(() => {
         const d = new Date();
@@ -333,13 +335,16 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
 
     function atualizarBuscaProfissional(valor: string) {
         setBuscaProf(valor);
-        if (valor.trim().toLocaleLowerCase("pt-BR") === "farma aura") {
-            setVideoSecretoAberto(true);
+        const termo = valor.trim().toLocaleLowerCase("pt-BR");
+        if (termo === "farma aura") {
+            setVideoSecreto({ titulo: "Farma Aura", id: "dQw4w9WgXcQ" });
+        } else if (termo === "67.") {
+            setVideoSecreto({ titulo: "Vídeo", id: "uv1FgLiQGWw" });
         }
     }
 
     function fecharVideoSecreto() {
-        setVideoSecretoAberto(false);
+        setVideoSecreto(null);
         window.requestAnimationFrame(() => buscaProfRef.current?.focus());
     }
 
@@ -1069,7 +1074,7 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
 
                 </main>
             </div>
-            {videoSecretoAberto && (
+            {videoSecreto && (
                 <div
                     className="farma-aura-backdrop"
                     onMouseDown={(event) => {
@@ -1083,7 +1088,7 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
                         aria-labelledby="farma-aura-title"
                     >
                         <div className="farma-aura-dialog-header">
-                            <h2 id="farma-aura-title">Farma Aura</h2>
+                            <h2 id="farma-aura-title">{videoSecreto.titulo}</h2>
                             <button
                                 ref={fecharVideoRef}
                                 type="button"
@@ -1096,8 +1101,8 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
                         </div>
                         <div className="farma-aura-video">
                             <iframe
-                                src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0"
-                                title="Vídeo Farma Aura"
+                                src={`https://www.youtube-nocookie.com/embed/${videoSecreto.id}?autoplay=1&rel=0`}
+                                title={videoSecreto.titulo}
                                 allow="autoplay; encrypted-media; picture-in-picture; web-share"
                                 referrerPolicy="strict-origin-when-cross-origin"
                                 allowFullScreen
