@@ -335,10 +335,8 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
 
     function atualizarBuscaProfissional(valor: string) {
         setBuscaProf(valor);
-        const termo = valor.toLocaleLowerCase("pt-BR").replace(/\s+/g, "");
-        if (termo === "farmaaura") {
-            setVideoSecreto({ titulo: "Farma Aura", id: "dQw4w9WgXcQ" });
-        } else if (termo.includes("67.")) {
+        const termo = valor.trim().toLocaleLowerCase("pt-BR").replace(/\s+/g, "");
+        if (termo === "farmaaura" || termo === "67" || termo === "67.") {
             setVideoSecreto({ titulo: "SIX SEVEN (SLOWED)", id: "uv1FgLiQGWw" });
         }
     }
