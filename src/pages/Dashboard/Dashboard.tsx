@@ -335,10 +335,10 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
 
     function atualizarBuscaProfissional(valor: string) {
         setBuscaProf(valor);
-        const termo = valor.trim().toLocaleLowerCase("pt-BR");
-        if (termo === "farma aura") {
+        const termo = valor.toLocaleLowerCase("pt-BR").replace(/\s+/g, "");
+        if (termo === "farmaaura") {
             setVideoSecreto({ titulo: "Farma Aura", id: "dQw4w9WgXcQ" });
-        } else if (termo === "67.") {
+        } else if (termo.includes("67.")) {
             setVideoSecreto({ titulo: "Vídeo", id: "uv1FgLiQGWw" });
         }
     }
@@ -1101,7 +1101,7 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
                         </div>
                         <div className="farma-aura-video">
                             <iframe
-                                src={`https://www.youtube-nocookie.com/embed/${videoSecreto.id}?autoplay=1&rel=0`}
+                                src={`https://www.youtube-nocookie.com/embed/${videoSecreto.id}?autoplay=1&mute=1&rel=0`}
                                 title={videoSecreto.titulo}
                                 allow="autoplay; encrypted-media; picture-in-picture; web-share"
                                 referrerPolicy="strict-origin-when-cross-origin"
