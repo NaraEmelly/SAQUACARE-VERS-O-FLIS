@@ -8,7 +8,7 @@ const FEEDBACK_CATEGORIES = [
 ];
 
 function doPost(event) {
-  const parameters = event && event.parameter ? event.parameter : {};
+  const parameters = getRequestParameters(event);
 
   if (parameters.website) {
     return createResponse({ ok: true });
@@ -40,6 +40,7 @@ function doPost(event) {
 
     MailApp.sendEmail({
       to: FEEDBACK_RECIPIENT,
+      name: `SaquaCare | ${displayName}`,
       subject: `Feedback SaquaCare | ${displayName} | ${category}`,
       body: [
         `Nome: ${displayName}`,
@@ -90,6 +91,26 @@ function doPost(event) {
     console.error(error && error.message ? error.message : "Falha ao enviar feedback.");
     return createResponse({ ok: false, error: "send_failed" });
   }
+}
+
+function getRequestParameters(event) {
+  const parameters = Object.assign({}, event && event.parameter ? event.parameter : {});
+  const body = event && event.postData ? event.postData.contents : "";
+
+  if (!body) return parameters;
+
+  body.split("&").forEach((entry) => {
+    const separator = entry.indexOf("=");
+    const key = decodeFormValue(separator < 0 ? entry : entry.slice(0, separator));
+    const value = decodeFormValue(separator < 0 ? "" : entry.slice(separator + 1));
+    parameters[key] = value;
+  });
+
+  return parameters;
+}
+
+function decodeFormValue(value) {
+  return decodeURIComponent(value.replace(/\+/g, " "));
 }
 
 function escapeHtml(value) {
