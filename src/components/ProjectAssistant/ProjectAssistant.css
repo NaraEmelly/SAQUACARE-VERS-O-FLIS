@@ -147,6 +147,7 @@
     display: flex;
     align-items: flex-end;
     gap: 7px;
+    animation: saqua-message-arrive 320ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
 }
 
 .saqua-assistant-message p {
@@ -268,6 +269,8 @@
     border-radius: 14px;
     background: var(--color-surface);
     box-shadow: 0 8px 24px rgb(var(--color-primary-dark-rgb) / 0.2);
+    transform-origin: left bottom;
+    animation: saqua-tour-dock-arrive 260ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
 }
 
 .saqua-assistant-tour-dock > span {
@@ -303,93 +306,14 @@
     outline-offset: 2px;
 }
 
-.saqua-assistant-form {
-    flex: 0 0 auto;
-    padding: 10px 12px 12px;
-    border-top: 1px solid var(--color-border);
-}
-
-.saqua-assistant-input-label {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--color-text-secondary);
-    font-size: 0.72rem;
-    font-weight: 600;
-}
-
-.saqua-assistant-input-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.saqua-assistant-input-row input {
-    width: 0;
-    min-width: 0;
-    min-height: 42px;
-    flex: 1 1 auto;
-    padding: 0 11px;
-    border: 1px solid var(--color-border-strong);
-    border-radius: 12px;
-    background: var(--color-surface);
-    color: var(--color-text);
-    font: inherit;
-    font-size: 0.8rem;
-}
-
-.saqua-assistant-input-row input:focus-visible,
 .saqua-assistant button:focus-visible {
     outline: 3px solid #f0b429;
     outline-offset: 2px;
 }
 
-.saqua-assistant-microphone,
-.saqua-assistant-send {
-    display: grid;
-    width: 42px;
-    min-width: 42px;
-    height: 42px;
-    place-items: center;
-    border: 0;
-    border-radius: 12px;
-    background: var(--color-primary-soft);
-    color: var(--color-primary-dark);
-    cursor: pointer;
-}
-
-.saqua-assistant-microphone svg {
-    width: 21px;
-    height: 21px;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 1.8;
-}
-
-.saqua-assistant-microphone.is-listening {
-    background: var(--color-danger-soft);
-    color: var(--color-danger);
-    animation: saqua-microphone-pulse 1.1s ease-in-out infinite;
-}
-
-.saqua-assistant-send {
-    background: var(--color-primary);
-    color: var(--color-on-primary);
-    font-size: 1.3rem;
-    font-weight: 700;
-}
-
 .saqua-assistant button:disabled {
     cursor: not-allowed;
     opacity: 0.5;
-}
-
-.saqua-assistant-status {
-    min-height: 15px;
-    margin-top: 6px;
-    color: var(--color-text-secondary);
-    font-size: 0.64rem;
-    line-height: 1.35;
 }
 
 .saqua-assistant-launcher {
@@ -422,6 +346,41 @@
     outline: 3px solid #f0b429 !important;
     outline-offset: 4px !important;
     box-shadow: 0 0 0 8px rgb(240 180 41 / 0.22) !important;
+    animation: saqua-tour-glow 2.2s ease-in-out infinite;
+}
+
+@keyframes saqua-message-arrive {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.99);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes saqua-tour-dock-arrive {
+    from {
+        opacity: 0;
+        transform: translateY(7px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes saqua-tour-glow {
+    0% {
+        filter: drop-shadow(0 0 0 rgb(240 180 41 / 0));
+    }
+    50% {
+        filter: drop-shadow(0 0 8px rgb(240 180 41 / 0.48));
+    }
+    100% {
+        filter: drop-shadow(0 0 0 rgb(240 180 41 / 0));
+    }
 }
 
 @keyframes saqua-bot-bob {
@@ -431,12 +390,6 @@
     }
     50% {
         transform: translateY(-2px) scale(1.04);
-    }
-}
-
-@keyframes saqua-microphone-pulse {
-    50% {
-        box-shadow: 0 0 0 5px rgb(var(--color-danger-rgb) / 0.16);
     }
 }
 
@@ -499,11 +452,11 @@
 
 @media (prefers-reduced-motion: reduce) {
     .saqua-bot-face.is-speaking,
-    .saqua-assistant-microphone.is-listening {
-        animation: none;
-    }
-
-    .saqua-assistant-launcher {
+    .saqua-assistant-launcher,
+    .saqua-assistant-message,
+    .saqua-assistant-tour-dock,
+    .saqua-tour-highlight {
         transition: none;
+        animation: none;
     }
 }

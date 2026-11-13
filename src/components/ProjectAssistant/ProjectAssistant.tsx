@@ -23,52 +23,22 @@ interface TourState {
     index: number;
 }
 
-interface RecognitionAlternativeLike {
-    transcript: string;
-}
-
-interface RecognitionResultLike extends ArrayLike<RecognitionAlternativeLike> {
-    isFinal?: boolean;
-}
-
-interface RecognitionEventLike {
-    results: ArrayLike<RecognitionResultLike>;
-}
-
-interface RecognitionErrorLike {
-    error: string;
-}
-
-interface SpeechRecognitionLike {
-    lang: string;
-    interimResults: boolean;
-    maxAlternatives: number;
-    onresult: ((event: RecognitionEventLike) => void) | null;
-    onerror: ((event: RecognitionErrorLike) => void) | null;
-    onend: (() => void) | null;
-    start: () => void;
-    stop: () => void;
-}
-
-type SpeechRecognitionConstructor = new () => SpeechRecognitionLike;
-type SpeechRecognitionWindow = Window & {
-    SpeechRecognition?: SpeechRecognitionConstructor;
-    webkitSpeechRecognition?: SpeechRecognitionConstructor;
-};
-
 const SUGGESTIONS = [
     "Como agendo uma consulta?",
     "Como acompanho a fila?",
     "Como uso a acessibilidade?",
     "Por que vacinar é importante?",
+    "Como encontro uma unidade?",
+    "Como funciona o cadastro?",
+    "O chat salva meus dados?",
 ];
 
 const SECTION_EXPLANATIONS: Record<string, string> = {
-    inicio: "Aqui você conhece a proposta e pode entrar na demonstração do paciente ou do profissional.",
-    sobre: "Esta parte apresenta o objetivo do SaquaCare e como a plataforma aproxima as pessoas dos serviços públicos de saúde.",
-    servicos: "Aqui estão os principais recursos: agendamentos, consultas, unidades e vacinação.",
-    feedback: "Neste formulário você pode avaliar o projeto com estrelas e sugerir melhorias. Não inclua dados pessoais ou de saúde.",
-    contato: "Aqui estão os canais de contato da equipe do projeto.",
+    inicio: "Começamos por aqui: você encontra um resumo do projeto e atalhos para explorar as demonstrações de paciente e profissional.",
+    sobre: "Aqui contamos um pouco da ideia do SaquaCare e de como queremos facilitar o acesso às informações de saúde.",
+    servicos: "Nesta parte ficam os principais recursos para explorar, como agendamentos, consultas, unidades e vacinação.",
+    feedback: "Sua opinião ajuda a melhorar o projeto. Se quiser deixar uma sugestão, só não inclua dados pessoais ou de saúde.",
+    contato: "E se quiser falar com a equipe, os canais de contato ficam por aqui.",
 };
 
 function normalize(text: string) {
@@ -99,34 +69,34 @@ function describeFeature(label: string) {
     const topic = normalize(label);
 
     if (topic.includes("inicio")) {
-        return "O início reúne um resumo da demonstração e atalhos para as principais áreas.";
+        return "Por aqui você encontra o resumo da demonstração e atalhos para começar a explorar.";
     }
     if (topic.includes("agendamento") || topic.includes("agenda")) {
-        return "Na agenda você consulta os atendimentos demonstrativos e explora o fluxo de agendamento. Os dados são fictícios; não informe dados reais.";
+        return "Aqui dá para explorar o fluxo de agendamento e ver os exemplos de atendimento. Tudo é demonstrativo, então não use dados reais.";
     }
     if (topic.includes("fila")) {
-        return "A fila mostra a situação dos atendimentos e o tempo estimado de espera, usando informações fictícias para esta demonstração.";
+        return "Nesta tela você vê como a fila pode ser apresentada. Os status e tempos são apenas exemplos, não dados em tempo real.";
     }
     if (topic.includes("paciente")) {
-        return "Esta área permite explorar a lista demonstrativa de pacientes e os recursos de acompanhamento. Não use informações reais.";
+        return "Aqui você pode conhecer os recursos pensados para pacientes. Os registros são fictícios, combinado?";
     }
     if (topic.includes("profissional") || topic.includes("medico")) {
-        return "Nesta área você pode conhecer os profissionais e as especialidades disponíveis na demonstração.";
+        return "Nesta área mostramos uma ideia de como profissionais e especialidades podem aparecer na plataforma.";
     }
     if (topic.includes("unidade")) {
-        return "Aqui você encontra unidades de saúde e pode explorar seus dados de localização e atendimento.";
+        return "Aqui você pode pesquisar as unidades apresentadas no projeto e explorar as informações disponíveis.";
     }
     if (topic.includes("vacina")) {
-        return "A área de vacinação apresenta informações demonstrativas para consultar e acompanhar vacinas.";
+        return "A área de vacinação ajuda a visualizar os recursos de acompanhamento. Os registros não atualizam sistemas oficiais.";
     }
     if (topic.includes("rh") || topic.includes("gestao")) {
-        return "A Gestão Interna / RH reúne telas demonstrativas de organização profissional e dados fictícios.";
+        return "Esta é a área demonstrativa de gestão interna, com exemplos de organização profissional.";
     }
     if (topic.includes("perfil")) {
-        return "Em Meu perfil você visualiza e edita as informações de demonstração disponíveis nesta tela.";
+        return "Em Meu perfil você pode explorar os campos e opções disponíveis nesta demonstração.";
     }
 
-    return "Explore esta área para conhecer os recursos demonstrativos do SaquaCare.";
+    return "Dê uma olhada nesta área para conhecer os recursos demonstrativos do SaquaCare.";
 }
 
 function buildGuidedSteps(): GuidedStep[] {
@@ -181,7 +151,7 @@ function buildGuidedSteps(): GuidedStep[] {
         {
             target: main,
             title: main.querySelector("h1, h2")?.textContent?.trim() || "Esta tela",
-            explanation: "Explore as informações e controles desta área demonstrativa. Selecione um assunto ou faça uma pergunta para receber ajuda.",
+            explanation: "Explore as informações e controles desta área demonstrativa. Se quiser, abra o guia para ver as opções disponíveis.",
             activate: false,
         },
     ];
@@ -210,13 +180,10 @@ function RobotIcon({ speaking = false }: { speaking?: boolean }) {
 export default function ProjectAssistant() {
     const location = useLocation();
     const [aberto, setAberto] = useState(false);
-    const [mensagem, setMensagem] = useState("");
-    const [ouvindo, setOuvindo] = useState(false);
     const [falaAtiva, setFalaAtiva] = useState(true);
     const [falando, setFalando] = useState(false);
     const [vozesDisponiveis, setVozesDisponiveis] = useState<SpeechSynthesisVoice[]>([]);
     const [vozSelecionada, setVozSelecionada] = useState("");
-    const [erroVoz, setErroVoz] = useState("");
     const [tour, setTour] = useState<TourState | null>(null);
     const [conversas, setConversas] = useState<ChatMessage[]>([
         {
@@ -228,17 +195,9 @@ export default function ProjectAssistant() {
     const idMensagem = useRef(1);
     const idFalaAtual = useRef(0);
     const areaMensagensRef = useRef<HTMLDivElement>(null);
-    const perguntaRef = useRef<HTMLInputElement>(null);
     const painelRef = useRef<HTMLElement>(null);
     const launcherRef = useRef<HTMLButtonElement>(null);
-    const reconhecimentoRef = useRef<SpeechRecognitionLike | null>(null);
     const tourAtual = tour?.steps[tour.index];
-    const reconhecimentoDisponivel =
-        typeof window !== "undefined"
-        && Boolean(
-            (window as SpeechRecognitionWindow).SpeechRecognition
-            || (window as SpeechRecognitionWindow).webkitSpeechRecognition
-        );
     const falaDisponivel =
         typeof window !== "undefined" && "speechSynthesis" in window;
     const vozesPortuguesBrasil = vozesDisponiveis.filter((voice) =>
@@ -285,18 +244,11 @@ export default function ProjectAssistant() {
     useEffect(() => {
         if (!aberto) return;
 
-        if (window.matchMedia("(max-width: 560px)").matches) {
-            painelRef.current?.focus();
-        } else {
-            perguntaRef.current?.focus();
-        }
+        painelRef.current?.focus();
         function fecharComEscape(event: KeyboardEvent) {
             if (event.key !== "Escape") return;
 
             pararFala();
-            reconhecimentoRef.current?.stop();
-            reconhecimentoRef.current = null;
-            setOuvindo(false);
             setTour(null);
             setAberto(false);
             launcherRef.current?.focus();
@@ -324,7 +276,6 @@ export default function ProjectAssistant() {
 
     useEffect(() => {
         return () => {
-            reconhecimentoRef.current?.stop();
             idFalaAtual.current += 1;
             window.speechSynthesis?.cancel();
             document
@@ -373,12 +324,6 @@ export default function ProjectAssistant() {
 
     function fecharAssistente() {
         pararFala();
-        if (reconhecimentoRef.current) {
-            reconhecimentoRef.current.onend = null;
-            reconhecimentoRef.current.stop();
-            reconhecimentoRef.current = null;
-        }
-        setOuvindo(false);
         setTour(null);
         setAberto(false);
         launcherRef.current?.focus();
@@ -387,7 +332,7 @@ export default function ProjectAssistant() {
     function iniciarTour() {
         const steps = buildGuidedSteps();
         if (steps.length === 0) {
-            const text = "Não encontrei um tour disponível nesta tela. Você pode escolher um assunto ou fazer uma pergunta.";
+            const text = "Não encontrei um tour para esta tela. Você pode abrir o guia e escolher um dos assuntos disponíveis.";
             adicionarConversa("assistant", text);
             falar(text);
             return;
@@ -399,7 +344,7 @@ export default function ProjectAssistant() {
         setTour({ steps, index: 0 });
         setAberto(false);
         const firstStep = steps[0];
-        const text = `Vamos começar! ${firstStep.title}: ${firstStep.explanation} Use “Próximo” para continuar.`;
+        const text = `Que tal conhecer esta tela comigo? Vamos começar por ${firstStep.title.toLowerCase()}. ${firstStep.explanation} Quando quiser, toque em Próximo.`;
         adicionarConversa("assistant", text);
         falar(text);
     }
@@ -421,78 +366,25 @@ export default function ProjectAssistant() {
             nextStep.target.click();
         }
         setTour({ ...tour, index: nextIndex });
-        const text = `${nextStep.title}: ${nextStep.explanation}`;
+        const transitions = [
+            "Agora vamos dar uma olhada em",
+            "Seguindo nosso passeio, chegamos a",
+            "Olha só o que tem em",
+            "E também vale conhecer",
+        ];
+        const transition = nextIndex === tour.steps.length - 1
+            ? "Para fechar, vamos conhecer"
+            : transitions[(nextIndex - 1) % transitions.length];
+        const text = `${transition} ${nextStep.title.toLowerCase()}. ${nextStep.explanation}`;
         adicionarConversa("assistant", text);
         falar(text);
     }
 
-    function enviarPergunta(question = mensagem) {
-        const pergunta = question.trim();
-        if (!pergunta) return;
-
-        adicionarConversa("visitor", pergunta);
-        setMensagem("");
-        setErroVoz("");
-
-        if (normalize(pergunta).split(/\s+/).includes("tour")) {
-            iniciarTour();
-            return;
-        }
-
-        if (tour) encerrarTour();
-        const answer = getLocalAssistantReply(pergunta);
+    function responderSugestao(question: string) {
+        adicionarConversa("visitor", question);
+        const answer = getLocalAssistantReply(question);
         adicionarConversa("assistant", answer);
         falar(answer);
-    }
-
-    function ouvirPergunta() {
-        if (!reconhecimentoDisponivel) {
-            setErroVoz("O reconhecimento de voz não está disponível neste navegador.");
-            return;
-        }
-
-        reconhecimentoRef.current?.stop();
-        const speechWindow = window as SpeechRecognitionWindow;
-        const Recognition =
-            speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
-        if (!Recognition) {
-            setErroVoz("O reconhecimento de voz não está disponível neste navegador.");
-            return;
-        }
-
-        const recognition = new Recognition();
-        recognition.lang = "pt-BR";
-        recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
-        recognition.onresult = (event) => {
-            const transcript = event.results[0]?.[0]?.transcript?.trim();
-            if (transcript) enviarPergunta(transcript);
-        };
-        recognition.onerror = (event) => {
-            const errorText = event.error === "not-allowed"
-                ? "Permita o uso do microfone no navegador para fazer uma pergunta por voz."
-                : event.error === "no-speech"
-                    ? "Não ouvi uma pergunta. Tente novamente ou escreva sua dúvida."
-                    : "Não foi possível reconhecer a voz. Você pode escrever sua pergunta.";
-            setErroVoz(errorText);
-            setOuvindo(false);
-        };
-        recognition.onend = () => {
-            setOuvindo(false);
-            reconhecimentoRef.current = null;
-        };
-
-        reconhecimentoRef.current = recognition;
-        setErroVoz("Pode falar. O reconhecimento depende das permissões e do suporte do navegador.");
-        setOuvindo(true);
-
-        try {
-            recognition.start();
-        } catch {
-            setOuvindo(false);
-            reconhecimentoRef.current = null;
-            setErroVoz("Não foi possível iniciar o microfone. Tente novamente ou escreva sua pergunta.");
-        }
     }
 
     return (
@@ -540,7 +432,7 @@ export default function ProjectAssistant() {
                     </header>
 
                     <p className="saqua-assistant-notice">
-                        Respostas locais, sem envio para IA externa. Não informe dados pessoais ou clínicos.
+                        Escolha uma pergunta para ver uma resposta automática. Não informe dados pessoais ou clínicos.
                     </p>
 
                     {vozesPortuguesBrasil.length > 0 && (
@@ -605,7 +497,7 @@ export default function ProjectAssistant() {
                                 <button
                                     type="button"
                                     key={suggestion}
-                                    onClick={() => enviarPergunta(suggestion)}
+                                    onClick={() => responderSugestao(suggestion)}
                                 >
                                     {suggestion}
                                 </button>
@@ -620,61 +512,6 @@ export default function ProjectAssistant() {
                         </div>
                     )}
 
-                    <form
-                        className="saqua-assistant-form"
-                        onSubmit={(event) => {
-                            event.preventDefault();
-                            enviarPergunta();
-                        }}
-                    >
-                        <label className="saqua-assistant-input-label" htmlFor="saqua-assistant-question">
-                            Sua pergunta
-                        </label>
-                        <div className="saqua-assistant-input-row">
-                            <input
-                                id="saqua-assistant-question"
-                                ref={perguntaRef}
-                                type="text"
-                                value={mensagem}
-                                onChange={(event) => setMensagem(event.target.value)}
-                                placeholder="Escreva sua dúvida..."
-                                autoComplete="off"
-                            />
-                            <button
-                                type="button"
-                                className={ouvindo ? "saqua-assistant-microphone is-listening" : "saqua-assistant-microphone"}
-                                aria-label={ouvindo ? "Parar de ouvir" : "Perguntar por voz"}
-                                aria-pressed={ouvindo}
-                                disabled={!reconhecimentoDisponivel}
-                                onClick={() => {
-                                    if (ouvindo) {
-                                        reconhecimentoRef.current?.stop();
-                                        setOuvindo(false);
-                                    } else {
-                                        ouvirPergunta();
-                                    }
-                                }}
-                            >
-                                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                    <rect x="9" y="2.5" width="6" height="12" rx="3" />
-                                    <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3.5M8.5 21.5h7" />
-                                </svg>
-                            </button>
-                            <button
-                                type="submit"
-                                className="saqua-assistant-send"
-                                aria-label="Enviar pergunta"
-                                disabled={!mensagem.trim()}
-                            >
-                                ↑
-                            </button>
-                        </div>
-                        <p className="saqua-assistant-status" role="status">
-                            {erroVoz || (reconhecimentoDisponivel
-                                ? "O reconhecimento de voz depende do navegador. Não fale dados pessoais ou clínicos."
-                                : "Voz indisponível neste navegador; você ainda pode escrever.")}
-                        </p>
-                    </form>
                 </section>
             )}
 

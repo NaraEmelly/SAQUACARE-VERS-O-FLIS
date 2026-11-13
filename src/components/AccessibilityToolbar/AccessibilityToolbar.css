@@ -1,7 +1,7 @@
 .acessibilidade {
   position: fixed;
   right: 16px;
-  bottom: calc(100px + env(safe-area-inset-bottom));
+  bottom: calc(16px + env(safe-area-inset-bottom));
   z-index: 10000;
   display: grid;
   justify-items: end;
@@ -88,22 +88,24 @@
 }
 
 .acessibilidade-alternador {
-  width: 48px;
-  min-width: 48px;
-  min-height: 48px;
+  width: 40px;
+  min-width: 40px;
+  min-height: 40px;
   padding: 0;
   display: grid;
   place-items: center;
   border-radius: 50%;
   background: var(--color-primary-dark);
   color: var(--color-on-primary);
-  box-shadow: 0 3px 12px rgb(var(--color-primary-dark-rgb) / 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  opacity: 0.78;
+  box-shadow: 0 2px 8px rgb(var(--color-primary-dark-rgb) / 0.22);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .acessibilidade-alternador:hover {
+  opacity: 1;
   transform: translateY(-2px);
-  box-shadow: 0 5px 16px rgb(var(--color-primary-dark-rgb) / 0.38);
+  box-shadow: 0 4px 12px rgb(var(--color-primary-dark-rgb) / 0.3);
 }
 
 .acessibilidade-painel button:focus-visible,
@@ -159,7 +161,7 @@ body.saquacare-espacamento-ampliado main th {
 @media (max-width: 480px) {
   .acessibilidade {
     right: 12px;
-    bottom: calc(100px + env(safe-area-inset-bottom));
+    bottom: calc(12px + env(safe-area-inset-bottom));
   }
 
   .acessibilidade-painel {
@@ -170,7 +172,7 @@ body.saquacare-espacamento-ampliado main th {
 
 @media (max-height: 560px) {
   .acessibilidade {
-    bottom: calc(100px + env(safe-area-inset-bottom));
+    bottom: calc(12px + env(safe-area-inset-bottom));
   }
 
   .acessibilidade-painel {

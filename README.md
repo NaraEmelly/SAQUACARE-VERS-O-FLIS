@@ -59,9 +59,9 @@ provedor. Como não é uma IA generativa, a Luma pode não entender perguntas fo
 dos assuntos preparados. A conversa fica apenas na memória da página e
 desaparece ao atualizá-la ou fechá-la. Não envie dados pessoais ou clínicos. A
 Luma oferece informações gerais sobre o projeto, não diagnóstico nem orientação
-médica individual. A voz em português do Brasil pode ser selecionada no painel;
-o reconhecimento de voz depende do suporte e das permissões do navegador e o
-processamento de áudio pode depender de serviços fornecidos pelo navegador.
+médica individual. O chat oferece perguntas prontas em vez de entrada livre; a
+leitura das respostas em voz alta depende das vozes disponíveis no navegador e
+no dispositivo.
 Os dados de exemplo do protótipo são fictícios e ficam no armazenamento local do
 navegador.
 
