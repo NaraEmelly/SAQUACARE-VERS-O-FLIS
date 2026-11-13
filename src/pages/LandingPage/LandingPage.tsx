@@ -480,17 +480,6 @@ function LandingPage() {
           </p>
         </div>
         <form className="feedback-form" onSubmit={enviarFeedback}>
-          <label htmlFor="feedback-nome">Seu nome (opcional)</label>
-          <input
-            id="feedback-nome"
-            type="text"
-            value={feedbackNome}
-            onChange={(event) => setFeedbackNome(event.target.value)}
-            placeholder="Como podemos chamar você?"
-            maxLength={100}
-            autoComplete="name"
-          />
-
           <fieldset className="feedback-rating">
             <legend>Avalie o projeto de 1 a 5 estrelas</legend>
             <div className="feedback-rating-options">
@@ -526,6 +515,17 @@ function LandingPage() {
                 : "Selecione uma avaliação"}
             </span>
           </fieldset>
+
+          <label htmlFor="feedback-nome">Seu nome (opcional)</label>
+          <input
+            id="feedback-nome"
+            type="text"
+            value={feedbackNome}
+            onChange={(event) => setFeedbackNome(event.target.value)}
+            placeholder="Como podemos chamar você?"
+            maxLength={100}
+            autoComplete="name"
+          />
 
           <label htmlFor="feedback-categoria">Sobre o que é seu feedback?</label>
           <select
