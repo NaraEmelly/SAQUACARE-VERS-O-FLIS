@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
@@ -222,6 +222,9 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
         ProfissionalSaude[]
     >([]);
     const [buscaProf, setBuscaProf] = useState("");
+    const [videoSecretoAberto, setVideoSecretoAberto] = useState(false);
+    const buscaProfRef = useRef<HTMLInputElement>(null);
+    const fecharVideoRef = useRef<HTMLButtonElement>(null);
     const [tipoProf, setTipoProf] = useState("todos");
     const perfil = usePerfil();
     const primeiroNome = perfil.nome.trim().split(/\s+/)[0] || "Paciente";
@@ -243,6 +246,27 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
         return () =>
             window.removeEventListener(FILA_ATUALIZADA_EVENTO, atualizar);
     }, []);
+
+    useEffect(() => {
+            if (!videoSecretoAberto) return;
+
+            const overflowOriginal = document.body.style.overflow;
+            document.body.style.overflow = "hidden";
+            fecharVideoRef.current?.focus();
+
+            function fecharComEscape(event: KeyboardEvent) {
+                if (event.key === "Escape") {
+                    setVideoSecretoAberto(false);
+                    window.requestAnimationFrame(() => buscaProfRef.current?.focus());
+                }
+            }
+
+            document.addEventListener("keydown", fecharComEscape);
+            return () => {
+                document.body.style.overflow = overflowOriginal;
+                document.removeEventListener("keydown", fecharComEscape);
+            };
+    }, [videoSecretoAberto]);
 
     const hojeIso = useMemo(() => {
         const d = new Date();
@@ -305,6 +329,18 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
         }
 
         navigate("/landingpage", { replace: true });
+    }
+
+    function atualizarBuscaProfissional(valor: string) {
+        setBuscaProf(valor);
+        if (valor.trim().toLocaleLowerCase("pt-BR") === "farma aura") {
+            setVideoSecretoAberto(true);
+        }
+    }
+
+    function fecharVideoSecreto() {
+        setVideoSecretoAberto(false);
+        window.requestAnimationFrame(() => buscaProfRef.current?.focus());
     }
 
     return (
@@ -377,9 +413,12 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
                     <label className="search-box">
                         <Icon name="busca" size={18} />
                         <input
+                            ref={buscaProfRef}
                             type="text"
                             placeholder="Buscar profissional ou especialidade"
                             aria-label="Buscar profissional ou especialidade"
+                            value={buscaProf}
+                            onChange={(event) => atualizarBuscaProfissional(event.target.value)}
                         />
                     </label>
 
@@ -1030,6 +1069,43 @@ function Dashboard({ initialTab = "inicio" }: DashboardProps) {
 
                 </main>
             </div>
+            {videoSecretoAberto && (
+                <div
+                    className="farma-aura-backdrop"
+                    onMouseDown={(event) => {
+                        if (event.target === event.currentTarget) fecharVideoSecreto();
+                    }}
+                >
+                    <section
+                        className="farma-aura-dialog"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="farma-aura-title"
+                    >
+                        <div className="farma-aura-dialog-header">
+                            <h2 id="farma-aura-title">Farma Aura</h2>
+                            <button
+                                ref={fecharVideoRef}
+                                type="button"
+                                className="farma-aura-close"
+                                aria-label="Fechar vídeo"
+                                onClick={fecharVideoSecreto}
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <div className="farma-aura-video">
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0"
+                                title="Vídeo Farma Aura"
+                                allow="autoplay; encrypted-media; picture-in-picture; web-share"
+                                referrerPolicy="strict-origin-when-cross-origin"
+                                allowFullScreen
+                            />
+                        </div>
+                    </section>
+                </div>
+            )}
         </div>
     );
 }
