@@ -1155,6 +1155,7 @@
   overflow: hidden;
 }
 
+.feedback-form > input,
 .feedback-form select,
 .feedback-form textarea {
   width: 100%;
@@ -1171,6 +1172,7 @@
   resize: vertical;
 }
 
+.feedback-form > input:focus-visible,
 .feedback-form select:focus-visible,
 .feedback-form textarea:focus-visible {
   outline: 3px solid rgb(var(--color-primary-rgb) / 0.28);

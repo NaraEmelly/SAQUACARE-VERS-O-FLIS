@@ -14,11 +14,13 @@ function doPost(event) {
     return createResponse({ ok: true });
   }
 
+  const name = String(parameters.name || "").trim();
   const category = String(parameters.category || "");
   const rating = Number(parameters.rating);
   const message = String(parameters.message || "").trim();
 
   if (
+    name.length > 100 ||
     !FEEDBACK_CATEGORIES.includes(category) ||
     !Number.isInteger(rating) ||
     rating < 1 ||
@@ -34,6 +36,7 @@ function doPost(event) {
       to: FEEDBACK_RECIPIENT,
       subject: `Feedback SaquaCare: ${category}`,
       body: [
+        `Nome: ${name || "Não informado"}`,
         `Categoria: ${category}`,
         `Avaliação: ${rating}/5 estrelas`,
         "",

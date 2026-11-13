@@ -176,6 +176,7 @@ function LandingPage() {
   const feedbackHoneypotRef = useRef<HTMLInputElement>(null);
   const scrolled = useScrolled();
   const activeSection = useActiveSection();
+  const [feedbackNome, setFeedbackNome] = useState("");
   const [feedbackCategoria, setFeedbackCategoria] = useState("Sugestão de melhoria");
   const [feedbackAvaliacao, setFeedbackAvaliacao] = useState(0);
   const [feedbackMensagem, setFeedbackMensagem] = useState("");
@@ -203,6 +204,7 @@ function LandingPage() {
 
     try {
       const dados = new URLSearchParams({
+        name: feedbackNome.trim(),
         category: feedbackCategoria,
         rating: String(feedbackAvaliacao),
         message: feedbackMensagem.trim(),
@@ -218,6 +220,7 @@ function LandingPage() {
       setFeedbackStatus(
         "Solicitação encaminhada ao Google. Como não é possível confirmar o recebimento pelo navegador, use o e-mail abaixo se a mensagem não chegar."
       );
+      setFeedbackNome("");
       setFeedbackMensagem("");
       setFeedbackAvaliacao(0);
     } catch {
@@ -477,6 +480,17 @@ function LandingPage() {
           </p>
         </div>
         <form className="feedback-form" onSubmit={enviarFeedback}>
+          <label htmlFor="feedback-nome">Seu nome (opcional)</label>
+          <input
+            id="feedback-nome"
+            type="text"
+            value={feedbackNome}
+            onChange={(event) => setFeedbackNome(event.target.value)}
+            placeholder="Como podemos chamar você?"
+            maxLength={100}
+            autoComplete="name"
+          />
+
           <fieldset className="feedback-rating">
             <legend>Avalie o projeto de 1 a 5 estrelas</legend>
             <div className="feedback-rating-options">
@@ -549,7 +563,8 @@ function LandingPage() {
           </div>
           <p className="feedback-privacy">
             Sua avaliação será encaminhada por e-mail, sem cadastro ou banco de
-            dados. Não inclua informações pessoais ou de saúde.
+            dados. O nome é opcional; não inclua informações de saúde ou outros
+            dados pessoais na mensagem.
           </p>
           <button type="submit" className="feedback-submit" disabled={feedbackEnviando}>
             {feedbackEnviando ? "Enviando..." : "Enviar feedback"}{" "}
