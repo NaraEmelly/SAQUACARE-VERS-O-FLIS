@@ -34,9 +34,9 @@ const SUGGESTIONS = [
 ];
 
 const SECTION_EXPLANATIONS: Record<string, string> = {
-    inicio: "Começamos por aqui: você encontra um resumo do projeto e atalhos para explorar as demonstrações de paciente e profissional.",
-    sobre: "Aqui contamos um pouco da ideia do SaquaCare e de como queremos facilitar o acesso às informações de saúde.",
-    servicos: "Nesta parte ficam os principais recursos para explorar, como agendamentos, consultas, unidades e vacinação.",
+    inicio: "Começamos por aqui: um resumo do projeto e atalhos para conhecer as áreas de paciente e profissional.",
+    sobre: "Aqui você conhece a proposta do SaquaCare e como a plataforma pode facilitar o acesso às informações de saúde.",
+    servicos: "Nesta parte estão reunidos os principais recursos: agendamentos, consultas, unidades e vacinação.",
     feedback: "Sua opinião ajuda a melhorar o projeto. Se quiser deixar uma sugestão, só não inclua dados pessoais ou de saúde.",
     contato: "E se quiser falar com a equipe, os canais de contato ficam por aqui.",
 };
@@ -69,34 +69,34 @@ function describeFeature(label: string) {
     const topic = normalize(label);
 
     if (topic.includes("inicio")) {
-        return "Por aqui você encontra o resumo da demonstração e atalhos para começar a explorar.";
+        return "Por aqui você encontra um resumo do SaquaCare e atalhos para as principais áreas.";
     }
     if (topic.includes("agendamento") || topic.includes("agenda")) {
-        return "Aqui dá para explorar o fluxo de agendamento e ver os exemplos de atendimento. Tudo é demonstrativo, então não use dados reais.";
+        return "Aqui você pode consultar a agenda, ver os detalhes de cada atendimento e iniciar um novo agendamento.";
     }
     if (topic.includes("fila")) {
-        return "Nesta tela você vê como a fila pode ser apresentada. Os status e tempos são apenas exemplos, não dados em tempo real.";
+        return "Nesta tela você acompanha os atendimentos por etapa e vê como a equipe pode organizar o fluxo da fila.";
     }
     if (topic.includes("paciente")) {
-        return "Aqui você pode conhecer os recursos pensados para pacientes. Os registros são fictícios, combinado?";
+        return "Aqui ficam os recursos para consultar agendamentos, acompanhar atendimentos e organizar as informações do paciente.";
     }
     if (topic.includes("profissional") || topic.includes("medico")) {
-        return "Nesta área mostramos uma ideia de como profissionais e especialidades podem aparecer na plataforma.";
+        return "Nesta área os profissionais podem explorar agenda, atendimentos e informações das especialidades.";
     }
     if (topic.includes("unidade")) {
         return "Aqui você pode pesquisar as unidades apresentadas no projeto e explorar as informações disponíveis.";
     }
     if (topic.includes("vacina")) {
-        return "A área de vacinação ajuda a visualizar os recursos de acompanhamento. Os registros não atualizam sistemas oficiais.";
+        return "A área de vacinação ajuda a consultar a carteira e organizar o acompanhamento das doses.";
     }
     if (topic.includes("rh") || topic.includes("gestao")) {
-        return "Esta é a área demonstrativa de gestão interna, com exemplos de organização profissional.";
+        return "A área de Gestão Interna reúne recursos para organizar informações e rotinas profissionais.";
     }
     if (topic.includes("perfil")) {
-        return "Em Meu perfil você pode explorar os campos e opções disponíveis nesta demonstração.";
+        return "Em Meu perfil você pode consultar e atualizar as informações disponíveis.";
     }
 
-    return "Dê uma olhada nesta área para conhecer os recursos demonstrativos do SaquaCare.";
+    return "Dê uma olhada nesta área para conhecer os recursos do SaquaCare.";
 }
 
 function buildGuidedSteps(): GuidedStep[] {
@@ -151,7 +151,7 @@ function buildGuidedSteps(): GuidedStep[] {
         {
             target: main,
             title: main.querySelector("h1, h2")?.textContent?.trim() || "Esta tela",
-            explanation: "Explore as informações e controles desta área demonstrativa. Se quiser, abra o guia para ver as opções disponíveis.",
+            explanation: "Explore as informações e controles desta área. Se quiser, abra o guia para ver mais opções.",
             activate: false,
         },
     ];
@@ -189,7 +189,7 @@ export default function ProjectAssistant() {
         {
             id: 0,
             role: "assistant",
-            text: "Olá! Sou a Luma, guia local do SaquaCare. Posso responder dúvidas comuns sobre a demonstração; minhas respostas são preparadas pela equipe, não sou uma IA generativa e não uso um serviço pago. Não envie dados pessoais ou clínicos.",
+            text: "Olá! Sou a Luma, guia do SaquaCare. Vou acompanhar você por uma apresentação dos recursos da plataforma. Escolha um assunto ou comece pelo tour. Para sua segurança, não compartilhe senhas nem informações pessoais ou de saúde.",
         },
     ]);
     const idMensagem = useRef(1);
@@ -432,7 +432,7 @@ export default function ProjectAssistant() {
                     </header>
 
                     <p className="saqua-assistant-notice">
-                        Escolha uma pergunta para ver uma resposta automática. Não informe dados pessoais ou clínicos.
+                        Escolha um assunto para conhecer os recursos. Esta é uma apresentação: as ações não confirmam atendimentos em serviços de saúde.
                     </p>
 
                     {vozesPortuguesBrasil.length > 0 && (

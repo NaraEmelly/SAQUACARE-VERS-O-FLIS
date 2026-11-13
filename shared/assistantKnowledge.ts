@@ -17,35 +17,35 @@ const TOPICS: AnswerTopic[] = [
     {
         keywords: ["cancelar", "cancelamento", "desmarcar", "remarcar", "reagendar"],
         answers: [
-            "Na demonstração, consulte Agendamentos e explore as ações disponíveis para cada registro. Qualquer cancelamento ou alteração fica apenas no navegador e não avisa uma unidade de saúde nem altera um atendimento real.",
+            "Em Agendamentos, abra o registro desejado para ver as opções de alteração ou cancelamento. Nesta apresentação, essas ações não enviam avisos para uma unidade de saúde.",
         ],
     },
     {
         keywords: ["agend*", "marcar consulta", "marcar exame", "novo agendamento", "desmarcar", "cancelar consulta", "remarcar"],
         answers: [
-            "Na demonstração, abra Agendamentos, escolha Novo agendamento, selecione o tipo de atendimento, a unidade e a data, e confirme. Os registros são locais e fictícios: não confirmam uma consulta real.",
-            "Para explorar o fluxo, entre em Agendamentos e use Novo agendamento. Escolha as opções disponíveis e confirme. Esta é uma demonstração; ela não envia nem confirma pedidos em um serviço de saúde real.",
+            "Para conhecer o fluxo, abra Agendamentos e selecione Novo agendamento. Escolha o tipo de atendimento, a unidade, a data e o horário; depois, revise as informações e confirme.",
+            "Em Agendamentos, você pode acompanhar os registros por status, consultar os detalhes e iniciar um novo pedido pelo botão Novo agendamento.",
         ],
     },
     {
         keywords: ["fila", "espera", "tempo de atendimento", "minha vez", "chamada"],
         answers: [
-            "A área Fila de atendimento mostra exemplos de status e espera para você conhecer a interface. Os dados são fictícios e não representam uma fila ou previsão em tempo real.",
-            "Você pode abrir Fila de atendimento pelo painel. A fila é demonstrativa; confirme a espera diretamente com a unidade de saúde, pois o SaquaCare não recebe dados ao vivo.",
+            "Em Fila de atendimento, acompanhe os status dos atendimentos e veja como a equipe pode organizar o fluxo de espera.",
+            "Abra Fila de atendimento para explorar a organização dos atendimentos por etapa e os recursos de acompanhamento.",
         ],
     },
     {
         keywords: ["vacin*", "caderneta", "calendario vacinal", "dose*", "imuniz*"],
         answers: [
-            "Na área Vacinação, você encontra conteúdo demonstrativo e pode explorar o registro de doses no navegador. Isso não atualiza sistemas oficiais. Para calendário e orientações atuais, consulte uma unidade de saúde ou o Ministério da Saúde: https://www.gov.br/saude/pt-br/vacinacao",
-            "O menu Vacinação permite explorar a carteira e exemplos de doses. Os registros da demonstração não substituem a caderneta nem são enviados ao SUS. Confira seu esquema vacinal com um profissional ou em https://www.gov.br/saude/pt-br/vacinacao",
+            "Na área Vacinação, consulte a carteira, explore o calendário por faixa etária e veja os campos disponíveis para acompanhar doses. Para orientações oficiais e atualizadas, consulte uma unidade de saúde ou o Ministério da Saúde: https://www.gov.br/saude/pt-br/vacinacao",
+            "O menu Vacinação reúne recursos para visualizar a carteira e organizar o acompanhamento das doses. As informações oficiais do calendário estão em https://www.gov.br/saude/pt-br/vacinacao",
         ],
     },
     {
         keywords: ["unidad*", "ubs", "posto de saude", "clinic*", "endereco", "onde atende", "localizacao", "mapa"],
         answers: [
-            "Abra Unidades para pesquisar e filtrar os locais apresentados na demonstração. Confira endereço, horários e atendimento diretamente com a unidade antes de se deslocar; os dados podem não estar atualizados.",
-            "A tela Unidades ajuda a explorar locais e informações de atendimento em Saquarema. Como este conteúdo é demonstrativo e pode mudar, confirme os detalhes com o serviço responsável.",
+            "Em Unidades, pesquise pelo nome ou bairro e use os filtros para encontrar um local. Ao abrir uma unidade, você pode consultar endereço, contatos e serviços informados.",
+            "A seção Unidades reúne opções de atendimento em Saquarema. Pesquise por bairro ou categoria e abra um resultado para ver os detalhes disponíveis.",
         ],
     },
     {
@@ -76,21 +76,21 @@ const TOPICS: AnswerTopic[] = [
     {
         keywords: ["senha", "esqueci", "recuperar acesso", "redefinir acesso", "trocar senha", "login", "entrar na conta", "cadastr*", "criar conta", "registrar"],
         answers: [
-            "O cadastro e o login fazem parte da demonstração. A recuperação automática de senha não está disponível. Não compartilhe sua senha no chat; se tiver dificuldade, procure a equipe pelos canais na seção Contato.",
-            "Você pode explorar Entrar e Criar conta na demonstração. O protótipo não oferece recuperação automática de senha e não é um serviço de autenticação oficial. Nunca envie sua senha aqui.",
+            "Em Criar conta, preencha os campos solicitados para conhecer o fluxo; em Entrar, informe suas credenciais cadastradas. A recuperação automática de senha ainda não está disponível. Nunca compartilhe sua senha no chat.",
+            "Acesse Entrar para fazer login ou Criar conta para conhecer o cadastro. Se precisar recuperar uma senha, procure a equipe pelos canais na seção Contato.",
         ],
     },
     {
         keywords: ["profissional*", "medic*", "enfermeir*", "recepcao", "secretaria", "rh", "administrador*", "permissao*", "perfil de acesso"],
         answers: [
-            "A demonstração apresenta áreas distintas para paciente e profissional, com recursos que dependem do perfil. Os nomes, registros e atendimentos exibidos são fictícios; a tela não confirma acesso a um serviço real.",
-            "Os perfis de paciente, profissional e administração ilustram como os recursos podem ser organizados por permissão. Este projeto está em desenvolvimento e não deve ser usado para inserir dados reais.",
+            "A plataforma organiza as áreas de paciente, profissional e administração conforme as tarefas de cada perfil. A área profissional reúne recursos de agenda, fila e gestão; a área do paciente prioriza consultas e acompanhamento.",
+            "Cada perfil tem menus próprios para facilitar o acesso às tarefas do dia a dia. Explore as opções de paciente ou profissional para conhecer os fluxos disponíveis.",
         ],
     },
     {
         keywords: ["perfil", "meus dados", "editar dados", "telefone cadastrado", "cartao sus"],
         answers: [
-            "A área Meu perfil permite explorar os campos demonstrativos. Evite inserir dados pessoais reais: as informações da demonstração ficam no armazenamento local deste navegador.",
+            "Em Meu perfil, consulte e edite os campos disponíveis para manter suas informações organizadas. Evite inserir dados pessoais reais nesta apresentação.",
         ],
     },
     {
@@ -126,7 +126,7 @@ const TOPICS: AnswerTopic[] = [
     {
         keywords: ["saquacare", "projeto", "universidade", "saquarema", "sus", "prefeitura"],
         answers: [
-            "O SaquaCare é um projeto acadêmico em desenvolvimento, ligado à Universidade de Vassouras e pensado para explorar formas de organizar informações e serviços de saúde em Saquarema. A demonstração não representa parceria oficial, serviço público ativo ou disponibilidade em tempo real.",
+            "O SaquaCare é um projeto acadêmico da Universidade de Vassouras, pensado para aproximar as pessoas das informações e dos serviços de saúde em Saquarema. A proposta reúne recursos de agendamento, acompanhamento, vacinação e gestão em uma única plataforma.",
         ],
     },
     {
@@ -154,7 +154,7 @@ function selectAnswer(answers: string[], question: string) {
 export function getLocalAssistantReply(input: string) {
     const question = normalize(input);
     if (!question) {
-        return "Escreva uma pergunta sobre os recursos do SaquaCare. Posso explicar, por exemplo, os agendamentos demonstrativos, vacinação, unidades ou acessibilidade.";
+        return "Escolha uma opção para conhecer os recursos do SaquaCare, como agendamentos, vacinação, unidades ou acessibilidade.";
     }
 
     if (
@@ -173,6 +173,13 @@ export function getLocalAssistantReply(input: string) {
     }
 
     if (
+        /\b(?:agendamento|consulta|fila|atendimento)\b[\s\S]{0,40}\b(?:real|confirmado|confirmada|tempo real|valido|valida)\b/.test(question)
+        || /\b(?:real|confirmado|confirmada|tempo real)\b[\s\S]{0,40}\b(?:agendamento|consulta|fila|atendimento)\b/.test(question)
+    ) {
+        return "Esta página é uma apresentação dos recursos do SaquaCare. As ações feitas aqui não são enviadas a uma unidade nem confirmam atendimento; para marcar ou confirmar uma consulta, fale diretamente com o serviço de saúde.";
+    }
+
+    if (
         /\b(?:eu|meu|minha|tenho|estou|sinto|fui diagnosticado|fui diagnosticada)\b[\s\S]{0,80}\b(?:dor|sintoma|febre|doenca|diagnostico|exame|alergia|medicamento|remedio|dose|gravidez|pressao|glicemia)\b/.test(question)
     ) {
         return "Não envie detalhes pessoais de saúde pelo chat. Não consigo avaliar sintomas nem orientar tratamento; procure um profissional de saúde. Se for uma emergência, ligue para o SAMU pelo 192.";
@@ -181,7 +188,7 @@ export function getLocalAssistantReply(input: string) {
     const greetingWords = new Set(["oi", "ola", "bom", "boa", "dia", "tarde", "noite", "obrigado", "obrigada", "valeu"]);
     const words = question.split(" ");
     if (words.length <= 4 && words.every((word) => greetingWords.has(word) || word === "luma")) {
-        return "Olá! Sou a Luma, guia local do SaquaCare. Pergunte sobre as telas e recursos da demonstração; não envie dados pessoais ou clínicos.";
+        return "Olá! Sou a Luma, guia do SaquaCare. Escolha um assunto e eu mostro como explorar os recursos da plataforma.";
     }
 
     for (const topic of TOPICS) {
