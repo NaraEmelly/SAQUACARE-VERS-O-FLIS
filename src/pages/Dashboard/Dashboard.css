@@ -2109,6 +2109,20 @@ button.summary-card {
     border: 0;
 }
 
+.farma-aura-open-link {
+    display: block;
+    padding: 14px 20px;
+    color: #176b67;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+}
+
+.farma-aura-open-link:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 560px) {
     .farma-aura-backdrop {
         padding: 12px;
