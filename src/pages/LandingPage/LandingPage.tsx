@@ -53,8 +53,17 @@ const aboutPoints = [
   "Acompanhamento da jornada",
 ];
 
+const teamMembers = [
+  "Ana Beatriz",
+  "Emanuelly Oliveira",
+  "Cintia Mendes",
+  "Nayara Emelly",
+  "Jhean Monteiro",
+];
+
 const NAV_LINKS = [
   { id: "sobre", label: "Sobre" },
+  { id: "equipe", label: "Equipe" },
   { id: "servicos", label: "Serviços" },
   { id: "feedback", label: "Feedback" },
   { id: "contato", label: "Contato" },
@@ -438,6 +447,43 @@ function LandingPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section id="equipe" className="team-section reveal">
+        <div className="section-heading">
+          <div>
+            <span className="section-label">QUEM FAZ ACONTECER</span>
+            <h2>Conheça nossa equipe</h2>
+          </div>
+          <p>
+            As pessoas por trás do SaquaCare, unidas para tornar o cuidado em
+            saúde mais acessível.
+          </p>
+        </div>
+        <div className="team-grid">
+          {teamMembers.map((member, index) => (
+            <article
+              className="team-card reveal"
+              key={member}
+              style={{ transitionDelay: `${index * 70}ms` }}
+            >
+              <div
+                className="team-photo-placeholder"
+                role="img"
+                aria-label={`Espaço para foto de ${member}`}
+              >
+                <span className="team-photo-placeholder-content">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 7.5h3l1.5-2h7l1.5 2h3v11H4z" />
+                    <circle cx="12" cy="13" r="3.5" />
+                  </svg>
+                  <span>Adicionar foto</span>
+                </span>
+              </div>
+              <h3>{member}</h3>
+            </article>
+          ))}
         </div>
       </section>
 
