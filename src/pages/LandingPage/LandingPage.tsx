@@ -2,6 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import type { FormEvent, MouseEvent, RefObject } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logos/logo-saquacare.png";
+import anaBeatrizPhoto from "../../assets/equipe/anabeatriz.jpg";
+import cintiaPhoto from "../../assets/equipe/cintia.jpg";
+import emanuellyPhoto from "../../assets/equipe/emanuelly.jpg";
+import jheanPhoto from "../../assets/equipe/jhean.jpg";
+import nayaraPhoto from "../../assets/equipe/nayara.jpg";
 import "./LandingPage.css";
 
 const services = [
@@ -54,11 +59,11 @@ const aboutPoints = [
 ];
 
 const teamMembers = [
-  "Ana Beatriz",
-  "Emanuelly Oliveira",
-  "Cintia Mendes",
-  "Nayara Emelly",
-  "Jhean Monteiro",
+  { name: "Ana Beatriz", photo: anaBeatrizPhoto },
+  { name: "Emanuelly Oliveira", photo: emanuellyPhoto },
+  { name: "Cintia Mendes", photo: cintiaPhoto },
+  { name: "Nayara Emelly", photo: nayaraPhoto },
+  { name: "Jhean Monteiro", photo: jheanPhoto },
 ];
 
 const NAV_LINKS = [
@@ -465,23 +470,18 @@ function LandingPage() {
           {teamMembers.map((member, index) => (
             <article
               className="team-card reveal"
-              key={member}
+              key={member.name}
               style={{ transitionDelay: `${index * 70}ms` }}
             >
-              <div
-                className="team-photo-placeholder"
-                role="img"
-                aria-label={`Espaço para foto de ${member}`}
-              >
-                <span className="team-photo-placeholder-content">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 7.5h3l1.5-2h7l1.5 2h3v11H4z" />
-                    <circle cx="12" cy="13" r="3.5" />
-                  </svg>
-                  <span>Adicionar foto</span>
-                </span>
+              <div className="team-photo-frame">
+                <img
+                  className="team-photo"
+                  src={member.photo}
+                  alt={`Foto de ${member.name}`}
+                  loading="lazy"
+                />
               </div>
-              <h3>{member}</h3>
+              <h3>{member.name}</h3>
             </article>
           ))}
         </div>
